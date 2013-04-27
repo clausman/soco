@@ -1,0 +1,26 @@
+{
+  "name": "SoCo",
+  "version": "0.0.1",
+  "author": "Piyush Agarwal, Shaun Ruske, John Bufe, Joshua Clausman",
+  "description": "Social Composer - Virtual Production Desktop",
+  "contributors": [ 
+    { "name": "Piyush Agarwal", "email": "pachuka@gmail.com" },
+    { "name": "Shaun Ruske", "email": "shaunr88@gmail.com" },
+    { "name": "John Bufe", "email": "jpbufe3@gmail.com" },
+    { "name": "Vijay Francis", "email": "yajiv142@gmail.com"}
+  ],  
+  "main": "./server.js",  
+  "keywords": [
+    "express"
+  ],
+  "dependencies" : {
+    "express": "3.2.0",
+    "ejs": "0.8.3",
+    "nano": "3.3.8"
+  },
+  "noAnalyze": true,
+  "license": "Apache",
+  "engines": {
+    "node": ">=0.6.14"
+  }
+}
