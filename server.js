@@ -66,9 +66,12 @@ app.use(function(err, req, res, next){
   res.send(500, 'Something broke!');
 });
 
+app.use(express.static(__dirname + '/public'));
+
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
+
 app.use(logErrors);
 app.use(clientErrorHandler);
 app.use(errorHandler);
