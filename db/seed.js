@@ -13,10 +13,10 @@ var compositions = [
 ];
 
 var tracks = [
-    Track.create('track one', {id:'cs_t1', instrument:'piano', notes:['cs_to_1']}), 
-    Track.create('track two', {id:'cs_t2', instrument:'drums', notes:['cs_tt_1']}),
-    Track.create('track one', {id:'ls_t1', instrument:'spoons', notes:['ls_to_1']}),
-    Track.create('track two', {id:'ls_t2', instrument:'banjo', notes:['ls_tt_1']}),
+    Track.create('track one', {id:'cs_t1', instrument:'piano', note_groups:['cs_to_1']}), 
+    Track.create('track two', {id:'cs_t2', instrument:'drums', note_groups:['cs_tt_1']}),
+    Track.create('track one', {id:'ls_t1', instrument:'spoons', note_groups:['ls_to_1']}),
+    Track.create('track two', {id:'ls_t2', instrument:'banjo', note_groups:['ls_tt_1']}),
 ];
 
 var notes = [
