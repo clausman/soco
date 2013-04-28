@@ -2,8 +2,9 @@ var errorHandler = require('./apiPut');
 
 var Composition = require('../models/composition.js');
 var Track = require('../models/track.js');
-var NoteGroup = require('../models/noteGroup')
-var db = require('../db/db')
+var NoteGroup = require('../models/noteGroup');
+var db = require('../db/db');
+var callbacks = require('./callbacks.js');
 
 /**
  * Api Crud operations
@@ -13,10 +14,9 @@ module.exports = function (app) {
         var compDb = db.compositions;
         var compId = req.param('id');
         var callback = callbacks.dbCallback(req, res);
-        var comp = {};
         compDb.get(compId, { revs_info: false }, function(err, body) {
             if (!err) {
-                comp = Composition.createFromObject(body);
+                var comp = Composition.createFromObject(body);
     			var creator = req.body.creator;
 		    	if(!(creator === undefined || creator === null)) comp.creator = creator;
 		    	var tempo = req.body.tempo;
@@ -39,11 +39,9 @@ module.exports = function (app) {
         var trackDb = db.tracks;
         var trackId = req.param('id');
         var callback = callbacks.dbCallback(req, res);
-        var track = {};
         trackDb.get(trackId, { revs_info: false }, function(err, body) {
             if (!err) {
-                track = Track.createFromObject(body);
-
+                var track = Track.createFromObject(body);
 		    	var instrument = req.body.instrument;
 		    	if(!(instrument === undefined || instrument === null)) track.instrument = instrument;
 		    	var noteGroups = req.body.noteGroups;
@@ -63,11 +61,9 @@ module.exports = function (app) {
         var noteGroupDb = db.noteGroups;
         var noteGroupId = req.param('id');
         var callback = callbacks.dbCallback(req, res);
-        var noteGroup = {};
         noteGroupDb.get(noteGroupId, { revs_info: false }, function(err, body) {
             if (!err) {
-                noteGroup = NoteGroup.createFromObject(body);
-
+                var noteGroup = NoteGroup.createFromObject(body);
 		    	var start = req.body.start;
 		    	if(!(start === undefined || start === null)) noteGroup.start = start;
 		    	var notes = req.body.notes;

@@ -100,6 +100,7 @@ require('./routes/main')(app);
 require('./routes/apiGet')(app);
 require('./routes/apiPost')(app);
 require('./routes/apiPut')(app);
+require('./routes/apiDelete')(app);
 //require('./routes/account')(app);
 //require('./routes/api')(app);
 //require('./routes/global')(app);

@@ -13,29 +13,29 @@ var compositions = [
 ];
 
 var tracks = [
-    Track.create('track one', {id:'cs_t1', instrument:'piano', note_groups:['cs_to_1']}), 
-    Track.create('track two', {id:'cs_t2', instrument:'drums', note_groups:['cs_tt_1']}),
-    Track.create('track one', {id:'ls_t1', instrument:'spoons', note_groups:['ls_to_1']}),
-    Track.create('track two', {id:'ls_t2', instrument:'banjo', note_groups:['ls_tt_1']}),
+    Track.create('track one', {id:'cs_t1', instrument:'piano', noteGroups:['cs_to_1']}), 
+    Track.create('track two', {id:'cs_t2', instrument:'drums', noteGroups:['cs_tt_1']}),
+    Track.create('track one', {id:'ls_t1', instrument:'spoons', noteGroups:['ls_to_1']}),
+    Track.create('track two', {id:'ls_t2', instrument:'banjo', noteGroups:['ls_tt_1']}),
 ];
 
 var notes = [
-    NoteGroup.create('cs_to_1', 0, [
+    NoteGroup.create(0, {id:'cs_to_1', notes: [
         Note.create(69, 1, 2, 1, 10, 10),
         Note.create(73, 1, 4, 1, 10, 10),
-        Note.create(74, 4, 4, 1, 10, 10)]),
-    NoteGroup.create('cs_tt_1', 0, [
+        Note.create(74, 4, 4, 1, 10, 10)]}),
+    NoteGroup.create(0, {id:'cs_tt_1', notes: [
         Note.create(69, 1, 1, 1, 10, 10),
         Note.create(73, 1, 3, 1, 10, 10),
-        Note.create(74, 4, 2, 1, 10, 10)]),
-    NoteGroup.create('ls_to_1', 0, [
+        Note.create(74, 4, 2, 1, 10, 10)]}),
+    NoteGroup.create(0, {id:'ls_to_1', notes: [
         Note.create(69, 1, 1, 1, 10, 10),
         Note.create(73, 1, 3, 1, 10, 10),
-        Note.create(74, 4, 2, 1, 10, 10)]),
-    NoteGroup.create('ls_tt_1', 0, [
+        Note.create(74, 4, 2, 1, 10, 10)]}),
+    NoteGroup.create(0, {id: 'ls_tt_1', notes: [
         Note.create(69, 1, 1, 1, 10, 10),
         Note.create(73, 1, 3, 1, 10, 10),
-        Note.create(74, 4, 2, 1, 10, 10)]),
+        Note.create(74, 4, 2, 1, 10, 10)]}),
 ];
 
  module.exports = {

@@ -2,8 +2,8 @@ var errorHandler = require('./apiGet');
 
 var Composition = require('../models/composition.js');
 var Track = require('../models/track.js');
-var NoteGroup = require('../models/noteGroup')
-var db = require('../db/db')
+var NoteGroup = require('../models/noteGroup');
+var db = require('../db/db');
 var callbacks = require('./callbacks.js');
 
 /**
