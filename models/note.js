@@ -3,7 +3,7 @@ var model = require('./model');
 function Note(pitch, on, durationNumerator, durationDenominator, onVelocity, offVelocity)
 {
     if (pitch === undefined || pitch < 0 || pitch >= 127) throw "Note must have a pitch between 0 and 127.";
-    if (on === undefined || on <= 0) throw "Note must have a start point > 0.";
+    if (on === undefined || on < 0) throw "Note must have a start point >= 0.";
     if (durationNumerator === undefined || durationNumerator <= 0) throw "Note must have a duration numerator > 0.";
     if (durationDenominator === undefined || durationDenominator <= 0) throw "Note must have a duration denominator > 0.";
     onVelocity = onVelocity || 31;
@@ -23,7 +23,7 @@ Note.prototype.toString = function() {
     JSON.stringfy(this);
 };
 
-module.exports = model({
+module.exports = new model({
     create : function(pitch, on, durationNumerator, durationDenominator, onVelocity, offVelocity)
     {
         return new Note(pitch, on, durationNumerator, durationDenominator, onVelocity, offVelocity);
@@ -31,7 +31,7 @@ module.exports = model({
     validate : function(note)
     {
         if (note.pitch === undefined ||
-	    	note.on === undefined || note.on <= 0 ||
+	    	note.on === undefined || note.on < 0 ||
 	    	note.durationNumerator === undefined || note.durationNumerator <= 0 ||
 	    	note.durationDenominator === undefined || note.durationDenominator <= 0 ||
 	    	note.onVelocity === undefined || note.onVelocity < 0 || note.onVelocity >= 64 ||
@@ -39,6 +39,4 @@ module.exports = model({
 	    	return false;
 	    return true;    
     }
-
-    return this;
 });
