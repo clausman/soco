@@ -1,3 +1,5 @@
+var model = require('./model')
+
 function Composition(name, creator, tempo, tracks)
 {
     if (name === undefined) throw "Composition must have name to be created";
@@ -11,21 +13,14 @@ function Composition(name, creator, tempo, tracks)
     this.tracks = tracks;
 };
 
-Composition.prototype.toString = function() {
-    JSON.stringfy(this);
-};
-
-module.exports = function()
-{
-    this.create = function(name, creator, tempo, tracks)
+module.exports = new model({
+    create : function(name, creator, tempo, tracks)
     {
         return new Composition(name, creator, tempo, tracks);
     },
-    this.validate = function(composition)
+    validate : function(composition)
     {
-        if (composition.name === undefined) throw "Composition.name must be defined"
-        //TODO more validation       
+        if (composition.name === undefined) throw "Composition.name must be defined"           
     }
+});
 
-    return this;
-}();
