@@ -2,8 +2,8 @@
  *  Initializes database with tables if they don't exist
  *  
  */
-hostname = 'http://localhost'
-port = 5984
+hostname = 'http://localhost';
+port = 5984;
 
 function db(hostname, port){
     var nano = require('nano')(hostname + ':' + 5984);
@@ -15,7 +15,7 @@ function db(hostname, port){
     this.tracks = nano.db.use(this.db_names[1]);
     this.noteGroups = nano.db.use(this.db_names[2]);
     this.nano = nano;
-}
+};
 
 module.exports = new db(hostname, port);
 
