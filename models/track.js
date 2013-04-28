@@ -7,7 +7,7 @@ function Track(name, options)
     var instrument = options.instrument || "Piano";
     var note_groups = options.note_groups || [];
     var id = options.id || null;
-    if (! options.notes instanceof Array) throw "Notes must be an array";
+    if (! options.note_groups instanceof Array) throw "Notes must be an array";
 
     this._id = id;
     this.name = name;

@@ -15,6 +15,7 @@ function Composition(name, options)
     this.creator = creator;
     this.tempo = tempo;
     this.tracks = tracks;
+
 };
 
 module.exports = new model({
@@ -37,6 +38,6 @@ module.exports = new model({
 		options.tracks = obj.tracks;
 		
 		return this.create(obj.name, options);
-    }
+	}
 });
 
