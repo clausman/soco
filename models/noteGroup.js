@@ -1,4 +1,5 @@
 var model = require('./model');
+var db = require('../db/db')
 
 function NoteGroup(start, options)
 {
@@ -16,10 +17,6 @@ function NoteGroup(start, options)
     this.name = name;
 };
 
-NoteGroup.prototype.toString = function() {
-    JSON.stringfy(this);
-};
-
 module.exports = new model({
     create : function(start, options) {
         return new NoteGroup(start, options);
@@ -29,14 +26,16 @@ module.exports = new model({
     		noteGroup.notes === undefined || !(noteGroup.notes instanceof Array) <= 0 ||
     		noteGroup.name === undefined)
     		return false;
-    	return true;
+        return true;
     },
     createFromObject : function(obj) {
-		var options = {};
-		options.name = obj.name;
-		options.id = obj.id;
-		options.notes = obj.notes;
+        var options = {};
+        options.name = obj.name;
+        // Support objects from both json and coach
+        options.id = obj.id ? obj.id : obj._id;
+        options.notes = obj.notes;
 		
-		return this.create(obj.start, options);
-    }
+        return this.create(obj.start, options);
+    },
+    db: db.noteGroups,
 });

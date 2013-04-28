@@ -1,4 +1,5 @@
 var model = require('./model');
+var db = require('../db/db')
 
 function Composition(name, options)
 {
@@ -35,11 +36,13 @@ module.exports = new model({
     },
     createFromObject : function(obj) {
 		var options = {};
+        options.id = obj.id ? obj.id : obj._id;
 		options.creator = obj.creator;
 		options.tempo = obj.tempo;
 		options.tracks = obj.tracks;
 		
 		return this.create(obj.name, options);
-	}
+	},
+    db : db.compositions,
 });
 

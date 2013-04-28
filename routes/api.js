@@ -30,6 +30,47 @@ module.exports = function (app) {
         });
     });
 
+    app.get('/composition/:id/full', function(req, res, next) {
+        var id = req.param('id');
+        try{
+            // Confusing as hell....
+            // Basically, recursively find all ids and replace them with the objects
+            // Then render the json on the entire object
+            Composition.find(id, function(composition){
+                if (! composition)
+                    res.send(500, "Could not find composition");
+                Track.find(composition.tracks, function(tracks){
+                    if (! tracks)
+                        res.send(500, "Composition had some invalid tracks");
+                    composition.tracks = tracks;
+                    var ngs = [];
+                    for (var i = 0; i < tracks.length; i++) {
+                        ngs.push.apply(ngs, tracks[i].note_groups)
+                    };
+                    NoteGroup.find(ngs, function(groups){
+                        if (! groups)
+                            res.send(500, "Composition tracks had some invalid note groups");
+                        var groupHash = {};
+                        for (var i = 0; i < groups.length; i++) {
+                            groupHash[groups[i]._id] = groups[i];
+                        };
+
+                        for (var i = 0; i < composition.tracks.length; i++) {
+                            var track = composition.tracks[i];
+
+                            for (var j = 0; j < track.note_groups.length; j++) {
+                                track.note_groups[j] = groupHash[track.note_groups[j]]
+                            };
+                        };
+                        res.json(composition);    
+                    });                    
+                });
+            });
+        }catch(err){
+            res.send(500, err);
+        }
+    });
+
     app.get('/track/:id', function(req, res, next) {
         var id = req.param('id');        
         db.tracks.get(id, { revs_info: true }, function(err, body) {

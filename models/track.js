@@ -1,4 +1,5 @@
 var model = require('./model');
+var db = require('../db/db');
 
 function Track(name, options)
 {
@@ -31,11 +32,12 @@ module.exports = new model({
     },
     createFromObject : function(obj) {
 		var options = {};
-		options.id = obj.id;
+		options.id = obj.id ? obj.id : obj._id;
 		options.instrument = obj.instrument;
 		options.note_groups = obj.note_groups;
 	
 		return this.create(obj.name, options);
-	}
+	},
+    db : db.tracks,
 });
 
