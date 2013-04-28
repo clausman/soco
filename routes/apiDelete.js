@@ -35,7 +35,6 @@ module.exports = function (app) {
 		        			var trackDocs = {};
 		        			trackDocs.docs = tracks;
 		        			NoteGroup.find(ngs, function(noteGroups) {
-		        				console.log(noteGroups);
 		        				if(!noteGroups) {
 		        					trackDb.bulk(trackDocs, null, trackCallback);
 		        					compDb.insert(comp, compId, compCallback);
