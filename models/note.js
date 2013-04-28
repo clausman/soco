@@ -6,6 +6,8 @@ function Note(pitch, on, durationNumerator, durationDenominator, options)
     if (on === undefined || on < 0) throw "Note must have a start point >= 0.";
     if (durationNumerator === undefined || durationNumerator <= 0) throw "Note must have a duration numerator > 0.";
     if (durationDenominator === undefined || durationDenominator <= 0) throw "Note must have a duration denominator > 0.";
+    
+    options = options || {};
     var onVelocity = options.onVelocity || 31;
     if (onVelocity < 0 || onVelocity >= 64) throw "On velocity must be between 0 and 63";
     var offVelocity = options.offVelocity || 31;
