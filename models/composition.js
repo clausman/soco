@@ -41,8 +41,8 @@ module.exports = new model({
 		options.creator = obj.creator;
 		options.tempo = obj.tempo;
 		options.tracks = obj.tracks;
-		
-		return this.create(obj.name, options);
+
+		return new Composition(obj.name, options);		
 	},
     db : db.compositions,
 });

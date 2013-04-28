@@ -36,7 +36,7 @@ module.exports = new model({
 		options.instrument = obj.instrument;
 		options.note_groups = obj.note_groups;
 	
-		return this.create(obj.name, options);
+		return new Track(obj.name, options);
 	},
     db : db.tracks,
 });

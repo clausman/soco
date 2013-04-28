@@ -35,7 +35,8 @@ module.exports = new model({
         options.id = obj.id ? obj.id : obj._id;
         options.notes = obj.notes;
 		
-        return this.create(obj.start, options);
+		return new NoteGroup(obj.start, options);
     },
     db: db.noteGroups,
+
 });
