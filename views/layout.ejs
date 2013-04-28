@@ -11,10 +11,30 @@
         <!--[if lt IE 9]>
           <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
+        
+        <script>
+            dojoConfig = { baseUrl: "/js/", packages: [ {name: "widgets", location: "widgets"} ], activeHeader: "<%=activeHeader%>" };
+        </script>
+
+        <script src="//ajax.googleapis.com/ajax/libs/dojo/1.8.3/dojo/dojo.js"></script>
+
+        <!--jQuery UI -->
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
     </head>
 
     <body>
-        
+        <script>
+            require(["dojo/ready", "dojo/dom", "dojo/dom-class"], function (ready, dom, domClass) {
+                ready(function () {
+                    console.log("Page Loaded: " + dojoConfig.activeHeader);
+                    activeHeader = dom.byId(dojoConfig.activeHeader);
+                    domClass.add(activeHeader, "active");
+
+                });
+            });
+        </script>
         <div id="header"><%- partial('header')%></div>
         <div class="container container-fluid" style="padding-top: 50px;">
             <div class="row-fluid">
@@ -30,9 +50,5 @@
             </div>
         </div>
         <div id="footer"><%- partial('footer')%></div>
-
-        <!-- Scripts placed at end of document for faster page load -->
-
-
     </body>
 </html>

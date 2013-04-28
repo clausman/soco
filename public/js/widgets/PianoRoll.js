@@ -1,17 +1,20 @@
-require(["dojo/_base/declare", "dojo/dom-construct", "dojo/dom-class", "dojo/dom-attr", "dojo/on", "dojo/window", "dojo/ready", "dojo/number", "dijit/_WidgetBase", "dijit/_TemplatedMixin", "dojo/text!./js/widgets/templates/PianoRoll.html"],
-    function (declare, domConstruct, domClass, domAttr, on, window, ready, number, _WidgetBase, _TemplatedMixin, _PianoRollTemplate) {
+require(["dojo/_base/declare", "dojo/dom-construct", "dojo/dom-class", "dojo/dom-attr", "dojo/dom-geometry", "dojo/dom-style", "dojo/on", "dojo/window", "dojo/ready", "dojo/number", "dijit/_WidgetBase", "dijit/_TemplatedMixin", "dojo/text!./js/widgets/templates/PianoRoll.html"],
+    function (declare, domConstruct, domClass, domAttr, domGeo, domStyle, on, window, ready, number, _WidgetBase, _TemplatedMixin, _PianoRollTemplate) {
 
         declare("widgets.PianoRoll", [_WidgetBase, _TemplatedMixin], {
             templateString: _PianoRollTemplate,
-            timeStep: 0.25, // the breakdown of tempo - 1/16, 1/8, 1/4, 1/2, 1 step
-            numOctaves: 4,  // how many octaves to show (starting at middle C)
+            timeStep: 20,
+            numOctaves: 1,  // how many octaves to show (starting at middle C)
+            numSteps: 40,
 
             _notesArray: null,
 
             buildRendering: function () {
                 if (!this._notesArray) {
-                    this._notesArray = {};
+                    this._notesArray = new Array();
                 }
+
+                this._audiolet = new Audiolet();
 
                 domClass.add(this.srcNodeRef, "piano-grid");
                 var titleClass = "noteSpan_TitleLight";
@@ -61,8 +64,10 @@ require(["dojo/_base/declare", "dojo/dom-construct", "dojo/dom-class", "dojo/dom
                     domConstruct.place(row, this.srcNodeRef);
                     var div;
 
-                    for (var j = 0; j < 100; j++) {
-                        var col = domConstruct.create("div", { class: "noteSpan1_8", id: row.id + "_timeStep_" + j });
+                    for (var j = 0; j < this.numSteps; j++) {
+                        var col = domConstruct.create("div", { class: "noteSpan", id: row.id + "_timeStep_" + j });
+                        domAttr.set(col, "step", j);
+
                         var id = col.id;
 
                         if (j == 0) {
@@ -73,7 +78,7 @@ require(["dojo/_base/declare", "dojo/dom-construct", "dojo/dom-class", "dojo/dom
                                 titleClass = "noteSpan_TitleLight";
                                 altRow = false;
                             }
-                            domClass.replace(col, titleClass, "noteSpan1_4");
+                            domClass.add(col, titleClass);
                             col.innerHTML = "<span>" + out + "</span>";
 
                             div = domConstruct.create("div", { class: "notesDiv" });
@@ -88,6 +93,7 @@ require(["dojo/_base/declare", "dojo/dom-construct", "dojo/dom-class", "dojo/dom
                             })();
 
                         } else {
+                            domStyle.set(col, "width", this.timeStep + "px");
 
                             if (altRow) {
                                 domClass.add(col, "altRow");
@@ -96,20 +102,85 @@ require(["dojo/_base/declare", "dojo/dom-construct", "dojo/dom-class", "dojo/dom
                             if (div) {
                                 domConstruct.place(col, div);
                             }
+                            _this = this;
                             (function () {
                                 var tid = id;
                                 on(dojo.byId(tid), "click", function () {
-
-                                    domClass.replace(dojo.byId(tid), "selectedNote", "altRow");
+                                    var item = dojo.byId(tid);
                                     var note = Note.fromLatin(domAttr.get(this.parentNode.parentNode, "note"));
-                                    this.audioletApp = new AudioletAppNote(note);
+                                    note.step = parseInt(domAttr.get(item, "step"));
+
+                                    _this._audiolet.scheduler.addRelative(0, function () {
+                                        console.log("Playing: " + note.frequency());
+                                        var synth = new Synth(_this._audiolet, note.frequency());
+                                        synth.connect(_this._audiolet.output);
+                                    } .bind(_this));
+
+                                    _this.createNote(domGeo.position(item, true), note, tid + "_Note");
+                                    if (!_this._notesArray[note.step]) {
+                                        _this._notesArray[note.step] = [];
+                                    }
+
+                                    _this._notesArray[note.step].push(note);
                                 });
                             })();
                         }
                     }
                 }
-                console.log("Hello WOrld");
-                window.getBox();
-            }
+            },
+
+            createNote: function (position, note, id) {
+                div = domConstruct.create("div", { id: id, class: "note" });
+                domConstruct.place(div, this.srcNodeRef);
+                var _this = this;
+                $(function () {
+                    var gridWidth = _this.timeStep + 1;
+                    noteNode = $("#" + id)[0];
+
+                    $("#" + id).resizable({
+                        grid: gridWidth,
+                        handles: "e, w"
+                    });
+
+                    $("#" + id).draggable({
+                        grid: [gridWidth, 41],
+                        ghost: true,
+                        containment: "parent"
+                    });
+
+                    domStyle.set(noteNode, "left", position.x + "px");
+                    domStyle.set(noteNode, "top", position.y + "px");
+                    domStyle.set(noteNode, "width", (_this.timeStep - 2) + "px");
+                    //noteNode.innerHTML = "<span style: margin:5px>" + note.latin() + "</span>";
+                });
+            },
+
+            playAll: function () {
+                for (var i = 1; i < _this._notesArray.length; i++) {
+
+                    (function () {
+                        var chord = _this._notesArray[i];
+
+                        _this._audiolet.scheduler.addRelative(i, function () {
+                            console.log("Chord:" + i + " - " + chord);
+                            if(chord) {
+                                  chord.toString = function() { 
+                                    var str = "";
+                                    for(var z = 0; z < this.length; z++) {
+                                        str += chord[z].latin() + ", ";
+                                    }
+                                    return str;
+                                }
+                                for (var j = 0; j <chord.length; j++) {
+                                    var note = chord[j];
+                                    var synth = new Synth(_this._audiolet, note.frequency());
+                                   console.log("Playing: " + note.frequency());
+                                    synth.connect(_this._audiolet.output);
+                                }
+                            }
+                        } .bind(_this));
+                    })();
+                }
+            },
         });
     });

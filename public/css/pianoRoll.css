@@ -7,8 +7,13 @@
     overflow-y: hidden;
 }
 
-.selectedNote {
-    background-color: #0094ff !important;
+.note {
+    margin: 1px;
+    height: 38px;
+    width: 9px;
+    background-color: #0094ff;
+    text-align: left;
+    position: absolute !important;
 }
 
 .notesDiv {
@@ -50,26 +55,6 @@
     margin-left: 1px;
     margin-bottom: -4px;
   }
-
-.noteSpan1_16 {
-  width: 10px;
-}
-
-.noteSpan1_8 {
-  width: 20px;
-}
-
-.noteSpan1_4 {
-  width: 40px;
-}
-
-.noteSpan1_2 {
-  width: 80px;
-}
-
-.noteSpan1 {
-  width: 160px;
-}
 
 .noteSpan_TitleDark {
     height: 40px;

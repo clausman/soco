@@ -1,19 +1,5 @@
-<% layout('boilerplate') -%>
-<% block('header') -%>
-
-<script>
-    dojoConfig = { baseUrl: "/js/", packages: [ {name: "widgets", location: "widgets"} ] };
-</script>
-
-<script src="//ajax.googleapis.com/ajax/libs/dojo/1.8.3/dojo/dojo.js"></script>
-
 <script src="/js/libs/music.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
-
-<!--jQuery UI -->
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 
 <!-- Audiolet.js -->
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/mootools/1.3.2/mootools-yui-compressed.js"></script>
@@ -21,12 +7,14 @@
 <script src="/js/libs/audiolet/Audiolet.js"></script>
 <script src="/js/libs/audiolet/audiolet_app.js"></script>
 
+<input type="button" onclick="window.pianoRoll.playAll()">Play</input>
 <script>
+    _timeSteps = { "1/16": 10, "1/8": 20, "1/4": 40, "1/2": 80, "1": 160 }, // the breakdown of tempo - 1/16, 1/8, 1/4, 1/2, 1 step
+
+
     require(["dojo/ready", "widgets/PianoRoll"], function (ready, PianoRoll) {
         ready(function () {
-            var pianoRoll = new widgets.PianoRoll({}, "content");
+            setTimeout( dojo.hitch(this, function() { window.pianoRoll = widgets.PianoRoll({timeStep: _timeSteps["1/4"]}, "content") }), 50);
          });
      });
 </script>
-
-<% block('footer') -%>

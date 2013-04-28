@@ -1,12 +1,14 @@
 var express = require('express');
-var engine = require('ejs-locals');
+var partials = require('express-partials');
 
 var app = express();
 
 // Configuration
-app.engine('ejs', engine);
-app.set('views', __dirname + '/views');
+
+app.use(partials());
+
 app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
 
 app.use(function(err, req, res, next){
   console.error(err.stack);

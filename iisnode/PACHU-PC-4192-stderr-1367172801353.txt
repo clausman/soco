@@ -1,0 +1,76 @@
+ReferenceError: C:\Users\Piyush\Documents\GitHub\soco\views/layout.ejs:15
+    13|         <![endif]-->
+    14|         
+ >> 15|         <%-scripts%>
+    16|         <%-stylesheets%>
+    17| 
+    18|     </head>
+
+scripts is not defined
+    at eval at <anonymous> (C:\Users\Piyush\Documents\GitHub\soco\node_modules\ejs\lib\ejs.js:234:12)
+    at C:\Users\Piyush\Documents\GitHub\soco\node_modules\ejs\lib\ejs.js:239:15
+    at Object.render (C:\Users\Piyush\Documents\GitHub\soco\node_modules\ejs\lib\ejs.js:277:13)
+    at View.engine (C:\Users\Piyush\Documents\GitHub\soco\node_modules\ejs\lib\ejs.js:303:22)
+    at View.render (C:\Users\Piyush\Documents\GitHub\soco\node_modules\express\lib\view.js:75:8)
+    at Function.render (C:\Users\Piyush\Documents\GitHub\soco\node_modules\express\lib\application.js:501:10)
+    at ServerResponse.partial (C:\Users\Piyush\Documents\GitHub\soco\node_modules\express\lib\response.js:755:7)
+    at C:\Users\Piyush\Documents\GitHub\soco\node_modules\express-partials\index.js:72:13
+    at View.engine (C:\Users\Piyush\Documents\GitHub\soco\node_modules\ejs\lib\ejs.js:303:5)
+    at View.render (C:\Users\Piyush\Documents\GitHub\soco\node_modules\express\lib\view.js:75:8)
+ReferenceError: C:\Users\Piyush\Documents\GitHub\soco\views/layout.ejs:15
+    13|         <![endif]-->
+    14|         
+ >> 15|         <%-scripts%>
+    16|         <%-stylesheets%>
+    17| 
+    18|     </head>
+
+scripts is not defined
+    at eval at <anonymous> (C:\Users\Piyush\Documents\GitHub\soco\node_modules\ejs\lib\ejs.js:234:12)
+    at C:\Users\Piyush\Documents\GitHub\soco\node_modules\ejs\lib\ejs.js:239:15
+    at Object.render (C:\Users\Piyush\Documents\GitHub\soco\node_modules\ejs\lib\ejs.js:277:13)
+    at View.engine (C:\Users\Piyush\Documents\GitHub\soco\node_modules\ejs\lib\ejs.js:303:22)
+    at View.render (C:\Users\Piyush\Documents\GitHub\soco\node_modules\express\lib\view.js:75:8)
+    at Function.render (C:\Users\Piyush\Documents\GitHub\soco\node_modules\express\lib\application.js:501:10)
+    at ServerResponse.partial (C:\Users\Piyush\Documents\GitHub\soco\node_modules\express\lib\response.js:755:7)
+    at C:\Users\Piyush\Documents\GitHub\soco\node_modules\express-partials\index.js:72:13
+    at View.engine (C:\Users\Piyush\Documents\GitHub\soco\node_modules\ejs\lib\ejs.js:303:5)
+    at View.render (C:\Users\Piyush\Documents\GitHub\soco\node_modules\express\lib\view.js:75:8)
+ReferenceError: C:\Users\Piyush\Documents\GitHub\soco\views/layout.ejs:28
+    26| 
+    27|     <body>
+ >> 28|         <%=activeHeader%>
+    29|         <div id="header"><%- partial('header')%></div>
+    30|         <div class="container container-fluid" style="padding-top: 50px;">
+    31|             <div class="row-fluid">
+
+activeHeader is not defined
+    at eval at <anonymous> (C:\Users\Piyush\Documents\GitHub\soco\node_modules\ejs\lib\ejs.js:238:3)
+    at C:\Users\Piyush\Documents\GitHub\soco\node_modules\ejs\lib\ejs.js:239:15
+    at Object.render (C:\Users\Piyush\Documents\GitHub\soco\node_modules\ejs\lib\ejs.js:277:13)
+    at View.engine (C:\Users\Piyush\Documents\GitHub\soco\node_modules\ejs\lib\ejs.js:303:22)
+    at View.render (C:\Users\Piyush\Documents\GitHub\soco\node_modules\express\lib\view.js:75:8)
+    at Function.render (C:\Users\Piyush\Documents\GitHub\soco\node_modules\express\lib\application.js:501:10)
+    at ServerResponse.partial (C:\Users\Piyush\Documents\GitHub\soco\node_modules\express\lib\response.js:755:7)
+    at C:\Users\Piyush\Documents\GitHub\soco\node_modules\express-partials\index.js:72:13
+    at View.engine (C:\Users\Piyush\Documents\GitHub\soco\node_modules\ejs\lib\ejs.js:303:5)
+    at View.render (C:\Users\Piyush\Documents\GitHub\soco\node_modules\express\lib\view.js:75:8)
+ReferenceError: C:\Users\Piyush\Documents\GitHub\soco\views/layout.ejs:28
+    26| 
+    27|     <body>
+ >> 28|         <%=activeHeader%>
+    29|         <div id="header"><%- partial('header')%></div>
+    30|         <div class="container container-fluid" style="padding-top: 50px;">
+    31|             <div class="row-fluid">
+
+activeHeader is not defined
+    at eval at <anonymous> (C:\Users\Piyush\Documents\GitHub\soco\node_modules\ejs\lib\ejs.js:238:3)
+    at C:\Users\Piyush\Documents\GitHub\soco\node_modules\ejs\lib\ejs.js:239:15
+    at Object.render (C:\Users\Piyush\Documents\GitHub\soco\node_modules\ejs\lib\ejs.js:277:13)
+    at View.engine (C:\Users\Piyush\Documents\GitHub\soco\node_modules\ejs\lib\ejs.js:303:22)
+    at View.render (C:\Users\Piyush\Documents\GitHub\soco\node_modules\express\lib\view.js:75:8)
+    at Function.render (C:\Users\Piyush\Documents\GitHub\soco\node_modules\express\lib\application.js:501:10)
+    at ServerResponse.partial (C:\Users\Piyush\Documents\GitHub\soco\node_modules\express\lib\response.js:755:7)
+    at C:\Users\Piyush\Documents\GitHub\soco\node_modules\express-partials\index.js:72:13
+    at View.engine (C:\Users\Piyush\Documents\GitHub\soco\node_modules\ejs\lib\ejs.js:303:5)
+    at View.render (C:\Users\Piyush\Documents\GitHub\soco\node_modules\express\lib\view.js:75:8)
