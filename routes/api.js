@@ -9,7 +9,7 @@ var nano = require('nano')('http://localhost:5984');
 module.exports = function (app) {
 	app.get('/composition', function(req, res, next) {
 		var comp_db = nano.db.use('composition');
-		comp_db.list({ revs_info: false, value: false }, function(err, body) {
+		comp_db.list({ revs_info: false }, function(err, body) {
 			if (!err) {
 				res.json(body.rows);
 			}
