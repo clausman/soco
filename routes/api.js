@@ -69,8 +69,8 @@ module.exports = function (app) {
         db.noteGroups.get(id, { revs_info: true }, function(err, body) {
             if (!err)
             {
-                //TODO add createFromObject
-                res.json(body);
+                var group = NoteGroup.createFromObject(body)
+                res.json(group);
 
             }
             else
