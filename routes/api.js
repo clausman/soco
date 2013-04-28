@@ -2,6 +2,7 @@ var errorHandler = require('./api');
 
 var Composition = require('../models/composition.js');
 var Track = require('../models/track.js');
+var NoteGroup = require('../models/noteGroup')
 var db = require('../db/db')
 
 /**
@@ -20,7 +21,10 @@ module.exports = function (app) {
         var comp_id = req.param('id');
         db.compositions.get(comp_id, { revs_info: true }, function(err, body) {
             if (!err)
-                res.json(body)
+            {
+                var comp = Composition.createFromObject(body);
+                res.json(comp);
+            }
             else
                 res.send(500, {error: err})
         });
@@ -30,7 +34,10 @@ module.exports = function (app) {
         var id = req.param('id');        
         db.tracks.get(id, { revs_info: true }, function(err, body) {
             if (!err)
-                res.json(body)
+            {
+                var track = Track.createFromObject(body);
+                res.json(track);
+            }
             else
                 res.send(500, {error:err})
         });
@@ -40,7 +47,11 @@ module.exports = function (app) {
         var id = req.param('id');
         db.noteGroups.get(id, { revs_info: true }, function(err, body) {
             if (!err)
-                res.json(body)
+            {
+                //TODO add createFromObject
+                res.json(body);
+
+            }
             else
                 res.send(500, {error:err})
         });
@@ -48,13 +59,13 @@ module.exports = function (app) {
 
     app.post('/composition', function(req, res, next) {
         var comp_db = nano.db.use('composition');	
-	var comp = Composition.createFromObject(req.body);
-	if(Composition.validate(comp)) {
-	    comp_db.insert(comp);
-	    res.json({"OK": true});
-	} else {
-	    res.json({"OK": false});
-	}
+        var comp = Composition.createFromObject(req.body);
+        if(Composition.validate(comp)) {
+            comp_db.insert(comp);
+            res.json({"OK": true});
+        } else {
+            res.json({"OK": false});
+        }
     });
 
     app.post('/track', function(req, res, next) {
