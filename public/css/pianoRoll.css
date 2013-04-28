@@ -16,6 +16,15 @@
     position: absolute !important;
 }
 
+.notePlay {
+    margin: 1px;
+    height: 38px;
+    width: 9px;
+    background-color: #b6ff00;
+    text-align: left;
+    position: absolute !important;
+}
+
 .notesDiv {
     display: inline-block;
 }

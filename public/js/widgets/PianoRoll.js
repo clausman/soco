@@ -4,7 +4,7 @@ require(["dojo/_base/declare", "dojo/dom-construct", "dojo/dom-class", "dojo/dom
         declare("widgets.PianoRoll", [_WidgetBase, _TemplatedMixin], {
             templateString: _PianoRollTemplate,
             timeStep: 20,
-            numOctaves: 1,  // how many octaves to show (starting at middle C)
+            numOctaves: 3,  // how many octaves to show (starting at middle C)
             numSteps: 40,
 
             _notesArray: null,
@@ -116,12 +116,12 @@ require(["dojo/_base/declare", "dojo/dom-construct", "dojo/dom-class", "dojo/dom
                                         synth.connect(_this._audiolet.output);
                                     } .bind(_this));
 
-                                    _this.createNote(domGeo.position(item, true), note, tid + "_Note");
+                                    var addedNote = _this.createNote(domGeo.position(item, true), note, tid + "_Note");
                                     if (!_this._notesArray[note.step]) {
                                         _this._notesArray[note.step] = [];
                                     }
 
-                                    _this._notesArray[note.step].push(note);
+                                    _this._notesArray[note.step].push([addedNote, note]);
                                 });
                             })();
                         }
@@ -153,6 +153,8 @@ require(["dojo/_base/declare", "dojo/dom-construct", "dojo/dom-class", "dojo/dom
                     domStyle.set(noteNode, "width", (_this.timeStep - 2) + "px");
                     //noteNode.innerHTML = "<span style: margin:5px>" + note.latin() + "</span>";
                 });
+
+                return div;
             },
 
             playAll: function () {
@@ -162,20 +164,22 @@ require(["dojo/_base/declare", "dojo/dom-construct", "dojo/dom-class", "dojo/dom
                         var chord = _this._notesArray[i];
 
                         _this._audiolet.scheduler.addRelative(i, function () {
-                            console.log("Chord:" + i + " - " + chord);
                             if(chord) {
-                                  chord.toString = function() { 
-                                    var str = "";
-                                    for(var z = 0; z < this.length; z++) {
-                                        str += chord[z].latin() + ", ";
-                                    }
-                                    return str;
-                                }
                                 for (var j = 0; j <chord.length; j++) {
-                                    var note = chord[j];
-                                    var synth = new Synth(_this._audiolet, note.frequency());
-                                   console.log("Playing: " + note.frequency());
-                                    synth.connect(_this._audiolet.output);
+                                    (function() {
+                                        var div = chord[j][0];
+                                        var note = chord[j][1];
+                                        note.step = parseInt(domAttr.get(div, "step"));
+
+                                        domClass.replace(div, "notePlay", "note");
+
+                                        var synth = new Synth(_this._audiolet, note.frequency());
+                                        console.log("Playing: " + note.frequency());
+                                        synth.connect(_this._audiolet.output);
+
+                                        setTimeout(dojo.hitch(this, function() { domClass.replace(div, "note", "notePlay") }), 500);
+                                    })();
+
                                 }
                             }
                         } .bind(_this));
