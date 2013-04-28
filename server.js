@@ -97,7 +97,9 @@ function errorHandler(err, req, res, next) {
 
 // Routes
 require('./routes/main')(app);
-require('./routes/api')(app);
+require('./routes/apiGet')(app);
+require('./routes/apiPost')(app);
+require('./routes/apiPut')(app);
 //require('./routes/account')(app);
 //require('./routes/api')(app);
 //require('./routes/global')(app);
