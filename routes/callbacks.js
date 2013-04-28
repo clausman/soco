@@ -28,7 +28,8 @@ module.exports.dbCallback = function(req, res, objCreator) {
     };
 
     this.successfulGet = function(err, body) {
-        console.log("Successful get: " + body);
+        console.log("Successful get:");
+        console.log(body);
         res.send(objCreator(body));
     };
 

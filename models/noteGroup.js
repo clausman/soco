@@ -4,7 +4,7 @@ var db = require('../db/db')
 function NoteGroup(start, options)
 {
     if (start === undefined || start < 0) throw "NoteGroup must have a start point >= 0.";
-    
+
     options = options || {};
     var id = options.id || null;
     var name = options.name || '';
@@ -29,7 +29,7 @@ module.exports = new model({
     },
     validate : function(noteGroup) {
         if (noteGroup.start === undefined || noteGroup.start < 0 ||
-    		noteGroup.notes === undefined || !(noteGroup.notes instanceof Array) <= 0 ||
+    		noteGroup.notes === undefined || !(noteGroup.notes instanceof Array) ||
     		noteGroup.name === undefined)
     		return false;
         return true;

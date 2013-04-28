@@ -13,9 +13,9 @@ module.exports = function (app) {
 
     app.post('/composition', function(req, res, next) {
         var comp = Composition.createFromObject(req.body);
-        var callback = callbacks.DbCallback(req, res);
+        var callback = callbacks.dbCallback(req, res);
         if(Composition.validate(comp)) {
-            db.compositions.insert(comp, null, DbCallback(req, res));
+            db.compositions.insert(comp, null, callback);
         } else {
             res.send(400);
         }
@@ -31,8 +31,9 @@ module.exports = function (app) {
 	    }
     });
     
-    app.post('/note_groups', function(req, res, next) {
+    app.post('/note_group', function(req, res, next) {
 	    var noteGroup = NoteGroup.createFromObject(req.body);
+        console.log(noteGroup);
         var callback = callbacks.dbCallback(req, res);
 	    if(NoteGroup.validate(noteGroup)) {
             db.noteGroups.insert(noteGroup, null, callback);
