@@ -4,6 +4,7 @@ var Composition = require('../models/composition');
 var Track = require('../models/track');
 var NoteGroup = require('../models/noteGroup')
 var db = require('../db/db')
+var callbacks = require('./callbacks.js');
 
 /**
  * Api Crud operations
@@ -11,36 +12,33 @@ var db = require('../db/db')
 module.exports = function (app) {
 
     app.post('/composition', function(req, res, next) {
-        var comp_db = nano.db.use('composition');	
         var comp = Composition.createFromObject(req.body);
+        var callback = callbacks.DbCallback(req, res);
         if(Composition.validate(comp)) {
-            comp_db.insert(comp);
-            res.json({"OK": true});
+            db.compositions.insert(comp, null, DbCallback(req, res));
         } else {
-            res.json({"OK": false});
+            res.send(400);
         }
     });
-
+    
     app.post('/track', function(req, res, next) {
-        var track_db = nano.db.use('track');	
-	var track = Track.createFromObject(req.body);
-	if(Track.validate(track)) {
-	    track_db.insert(track);
-	    res.json({"OK": true});
-	} else {
-	    res.json({"OK": false});
-	}
+	    var track = Track.createFromObject(req.body);
+	    var callback = callbacks.dbCallback(req, res);
+        if(Track.validate(track)) {
+            db.tracks.insert(track, null, callback);
+	    } else {
+	        res.send(400);
+	    }
     });
-
-    app.post('/note_group', function(req, res, next) {
-        var note_group_db = nano.db.use('note_group');	
-	var note_group = Note_Group.createFromObject(req.body);
-	if(Note_Group.validate(note_group)) {
-	    note_group_db.insert(note_group);
-	    res.json({"OK": true});
-	} else {
-	    res.json({"OK": false});
-	}
+    
+    app.post('/note_groups', function(req, res, next) {
+	    var noteGroup = NoteGroup.createFromObject(req.body);
+        var callback = callbacks.dbCallback(req, res);
+	    if(NoteGroup.validate(noteGroup)) {
+            db.noteGroups.insert(noteGroup, null, callback);
+	    } else {
+	        res.send(400);
+	    }
     });
 
 }
