@@ -31,7 +31,7 @@ module.exports = function (app) {
 	    }
     });
     
-    app.post('/noteGroup', function(req, res, next) {
+    app.post('/notegroup', function(req, res, next) {
 	    var noteGroup = NoteGroup.createFromObject(req.body);
         console.log(noteGroup);
         var callback = callbacks.dbCallback(req, res);

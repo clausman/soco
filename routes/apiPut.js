@@ -59,7 +59,7 @@ module.exports = function (app) {
         });
     });
 
-	app.put('/noteGroup/:id', function(req, res, next) {
+	app.put('/notegroup/:id', function(req, res, next) {
         var noteGroupDb = db.noteGroups;
         var noteGroupId = req.param('id');
         var callback = callbacks.dbCallback(req, res);

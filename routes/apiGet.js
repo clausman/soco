@@ -81,7 +81,7 @@ module.exports = function (app) {
         db.tracks.get(id, { revs_info: true }, callback);
     });
  
-	app.get('/noteGroup', function(req, res, next) {
+	app.get('/notegroup', function(req, res, next) {
 		db.noteGroups.list({ revs_info: false }, function(err, body) {
 			if (!err) {
 				res.json(body.rows);
@@ -90,7 +90,7 @@ module.exports = function (app) {
 		});
 	});
 
-    app.get('/noteGroup/:id', function(req, res, next) {
+    app.get('/notegroup/:id', function(req, res, next) {
         var id = req.param('id');
         var callback = callbacks.dbCallback(req, res, NoteGroup.createFromObject);
         db.noteGroups.get(id, { revs_info: true }, callback);
