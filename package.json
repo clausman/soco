@@ -22,5 +22,12 @@
   "license": "Apache",
   "engines": {
     "node": ">=0.6.14"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "devDependenvies":{
+    "mocha": "0.3.x",
+    "should": "1.2.x"
   }
 }
