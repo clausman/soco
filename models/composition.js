@@ -26,6 +26,16 @@ module.exports = function()
         if (composition.name === undefined) throw "Composition.name must be defined"
         //TODO more validation       
     }
+    this.createFromJSON = function(rawJsonStr) {
+	var jsonObject = JSON.parse(rawJsonStr);
+
+	var name = jsonObject.name;
+	var creator = jsonObject.creator;
+	var tempo = jsonObject.tempo;
+	var tracks = jsonObject.tracks;
+
+	this.create(name, creator, tempo, tracks);
+    }
 
     return this;
 }();

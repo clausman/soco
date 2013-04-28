@@ -1,4 +1,5 @@
 var errorHandler = require('./api');
+var Composition = require('../models/composition.js');
 
 // TODO Move the connection string to a common location
 var nano = require('nano')('http://localhost:5984');
@@ -34,8 +35,18 @@ module.exports = function (app) {
         });
     });
 
-  
-    /**  GET, POST, PUT, DELETE **/
+    app.post('/composition', function(req, res, next) {
+	console.log(req.body);
+        var comp_db = nano.db.use('composition');	
+	var comp = Composition.create(req.body);
+	if(Composition.validate(comp)) {
+	    comp_db.insert(comp);
+	    res.json({"OK": true});
+	} else {
+	    res.json({"OK": false});
+	}
+    });
 
+    /**  GET, POST, PUT, DELETE **/
 
 }
