@@ -25,24 +25,28 @@ module.exports = new model({
     },
     validate : function(composition)
     {
+	console.log(composition.tracks);
         if (composition.name === undefined
             || composition.creator === undefined
             || composition.tempo === undefined
-            || tracks === undefined
+            || composition.tracks === undefined
             || !(composition.tracks instanceof Array))
             return false;
         return true;
-    }
-    
-    createFromJson : function(rawJsonStr) {
-	var jsonObject = JSON.parse(rawJsonStr);
+    },
+    createFromObject : function(obj) 
+    {
+	console.log(obj.name);
+	if(typeof obj.name === 'undefined') {
+	    throw "Name undefined.";
+	}
+
+	var optional = {};
+	optional.creator = obj.creator;
+	optional.tempo = obj.tempo;
+	optional.tracks = obj.tracks;
 	
-	var name = jsonObject.name;
-	var creator = jsonObject.creator;
-	var tempo = jsonObject.tempo;
-	var tracks = jsonObject.tracks;
-	
-	this.create(name, creator, tempo, tracks);
+	return this.create(obj.name, optional);
     }
     
 });
