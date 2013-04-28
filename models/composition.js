@@ -9,8 +9,6 @@ function Composition(name, creator, tempo, tracks)
     this.creator = creator;
     this.tempo = tempo;
     this.tracks = tracks;
-
-    return this;
 };
 
 Composition.prototype.toString = function() {
@@ -21,11 +19,13 @@ module.exports = function()
 {
     this.create = function(name, creator, tempo, tracks)
     {
-        return Composition(name, creator, tempo, tracks);
+        return new Composition(name, creator, tempo, tracks);
     },
     this.validate = function(composition)
     {
         if (composition.name === undefined) throw "Composition.name must be defined"
         //TODO more validation       
     }
+
+    return this;
 }();
