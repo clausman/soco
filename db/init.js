@@ -1,6 +1,5 @@
 var db = require('./db')
 var seed = require('./seed')
-console.log(db)
 
 var db_create = function(nano, db_name)
 {
