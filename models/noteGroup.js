@@ -7,7 +7,7 @@ function NoteGroup(id, start, notes)
     notes = notes || [];
     if (!(notes instanceof Array)) throw "Notes must be an array.";
 
-    this.id = id;
+    this._id = id;
     this.start = start;
     this.notes = notes;
 };
@@ -28,6 +28,4 @@ module.exports = new model({
     		return false;
     	return true;
     }
-
-    return this;
 });

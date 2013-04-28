@@ -10,7 +10,7 @@ function Composition(name, options)
     var id = options.id || null;
     if (! tracks instanceof Array) throw "Tracks must be an array"
 
-    this.id = id;
+    this._id = id;
     this.name = name;
     this.creator = creator;
     this.tempo = tempo;
@@ -20,7 +20,6 @@ function Composition(name, options)
 module.exports = new model({
     create : function(name, options)
     {
-        options = options || {}
         return new Composition(name, options);
     },
     validate : function(composition)
@@ -28,10 +27,9 @@ module.exports = new model({
         if (composition.name === undefined
             || composition.creator === undefined
             || composition.tempo === undefined
-            || tracks === undefined
+            || composition.tracks === undefined
             || !(composition.tracks instanceof Array))
             return false;
         return true;
     }
 });
-

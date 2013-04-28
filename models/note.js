@@ -23,7 +23,7 @@ Note.prototype.toString = function() {
     JSON.stringfy(this);
 };
 
-module.exports = model({
+module.exports = new model({
     create : function(pitch, on, durationNumerator, durationDenominator, onVelocity, offVelocity)
     {
         return new Note(pitch, on, durationNumerator, durationDenominator, onVelocity, offVelocity);
@@ -39,6 +39,4 @@ module.exports = model({
 	    	return false;
 	    return true;    
     }
-
-    return this;
 });
