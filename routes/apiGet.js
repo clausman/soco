@@ -1,9 +1,10 @@
-var errorHandler = require('./api');
+var errorHandler = require('./apiGet');
 
 var Composition = require('../models/composition.js');
 var Track = require('../models/track.js');
 var NoteGroup = require('../models/noteGroup')
 var db = require('../db/db')
+var callbacks = require('./callbacks.js');
 
 /**
  * Api Crud operations
@@ -16,18 +17,11 @@ module.exports = function (app) {
 			}
 		});
 	});
-	
+
     app.get('/composition/:id', function(req, res, next) {
         var comp_id = req.param('id');
-        db.compositions.get(comp_id, { revs_info: true }, function(err, body) {
-            if (!err)
-            {
-                var comp = Composition.createFromObject(body);
-                res.json(comp);
-            }
-            else
-                res.send(500, {error: err})
-        });
+        var callback = callbacks.dbCallback(req, res, Composition.createFromObject);
+        db.compositions.get(comp_id, { revs_info: true }, callback);
     });
 
     app.get('/composition/:id/full', function(req, res, next) {
@@ -71,67 +65,32 @@ module.exports = function (app) {
         }
     });
 
+	app.get('/track', function(req, res, next) {
+		db.tracks.list({ revs_info: false }, function(err, body) {
+			if (!err) {
+				res.json(body.rows);
+			}
+		});
+	});
+
     app.get('/track/:id', function(req, res, next) {
         var id = req.param('id');        
-        db.tracks.get(id, { revs_info: true }, function(err, body) {
-            if (!err)
-            {
-                var track = Track.createFromObject(body);
-                res.json(track);
-            }
-            else
-                res.send(500, {error:err})
-        });
+        var callback = callbacks.dbCallback(req, res, Track.createFromObject);
+        db.tracks.get(id, { revs_info: true }, callback);
     });
-    
+ 
+	app.get('/note_group', function(req, res, next) {
+		db.noteGroups.list({ revs_info: false }, function(err, body) {
+			if (!err) {
+				res.json(body.rows);
+			}
+		});
+	});
+
     app.get('/note_group/:id', function(req, res, next) {
         var id = req.param('id');
-        db.noteGroups.get(id, { revs_info: true }, function(err, body) {
-            if (!err)
-            {
-                var group = NoteGroup.createFromObject(body)
-                res.json(group);
-
-            }
-            else
-                res.send(500, {error:err})
-        });
+        var callback = callbacks.dbCallback(req, res, NoteGroup.createFromObject);
+        db.noteGroups.get(id, { revs_info: true }, callback);
     });
-
-    app.post('/composition', function(req, res, next) {
-        var comp_db = nano.db.use('composition');	
-        var comp = Composition.createFromObject(req.body);
-        if(Composition.validate(comp)) {
-            comp_db.insert(comp);
-            res.json({"OK": true});
-        } else {
-            res.json({"OK": false});
-        }
-    });
-
-    app.post('/track', function(req, res, next) {
-        var track_db = nano.db.use('track');	
-	var track = Track.createFromObject(req.body);
-	if(Track.validate(track)) {
-	    track_db.insert(track);
-	    res.json({"OK": true});
-	} else {
-	    res.json({"OK": false});
-	}
-    });
-
-    app.post('/note_group', function(req, res, next) {
-        var note_group_db = nano.db.use('note_group');	
-	var note_group = Note_Group.createFromObject(req.body);
-	if(Note_Group.validate(note_group)) {
-	    note_group_db.insert(note_group);
-	    res.json({"OK": true});
-	} else {
-	    res.json({"OK": false});
-	}
-    });
-
-
-    /**  GET, POST, PUT, DELETE **/
-
+    
 }
