@@ -8,7 +8,9 @@ function NoteGroup(start, options)
     var notes = options.notes || [];
     if (!(notes instanceof Array)) throw "Notes must be an array.";
 
-    this._id = id;
+	if (id != null) {
+   		this._id = id;
+   	}
     this.start = start;
     this.notes = notes;
     this.name = name;

@@ -10,7 +10,9 @@ function Composition(name, options)
     var id = options.id || null;
     if (! tracks instanceof Array) throw "Tracks must be an array"
 
-    this._id = id;
+	if(id != null) {
+    	this._id = id;
+    }
     this.name = name;
     this.creator = creator;
     this.tempo = tempo;

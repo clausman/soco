@@ -9,7 +9,9 @@ function Track(name, options)
     var id = options.id || null;
     if (! options.note_groups instanceof Array) throw "Notes must be an array";
 
-    this._id = id;
+	if (id != null) {
+    	this._id = id;
+    }
     this.name = name;
     this.instrument = instrument;
     this.note_groups = note_groups;
