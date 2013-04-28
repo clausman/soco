@@ -9,10 +9,14 @@ function Composition(name, options)
     var tempo =  options.tempo || 120;
     var tracks = options.tracks || [];
     var id = options.id || null;
+    var rev = options.rev || null;
     if (! tracks instanceof Array) throw "Tracks must be an array"
 
 	if(id != null) {
     	this._id = id;
+    }
+    if(rev != null) {
+    	this._rev = rev;
     }
     this.name = name;
     this.creator = creator;
@@ -37,6 +41,7 @@ module.exports = new model({
     createFromObject : function(obj) {
 		var options = {};
         options.id = obj.id ? obj.id : obj._id;
+        options.rev = obj.rev ? obj.rev : obj._rev;
 		options.creator = obj.creator;
 		options.tempo = obj.tempo;
 		options.tracks = obj.tracks;
