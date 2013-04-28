@@ -1,0 +1,160 @@
+.row {
+    margin-left: 0px;
+}
+
+.piano-grid {
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.selectedNote {
+    background-color: #0094ff !important;
+}
+
+.notesDiv {
+    display: inline-block;
+}
+
+.show-piano-grid {
+  float: left;
+  white-space:  nowrap;
+}
+.show-piano-grid [class*="noteSpan"] {
+  background-color: #ddd;
+  -webkit-border-radius: 0px;
+     -moz-border-radius: 0px;
+          border-radius: 0px;
+  min-height: 40px;
+  line-height: 40px;
+}
+
+.altRow {
+    background-color: #999 !important;
+}
+
+.altRow:hover {
+    background-color: #ccc !important;
+}
+
+.show-piano-grid [class*="noteSpan"]:hover {
+  background-color: #bbb;
+}
+.show-piano-grid .show-piano-grid {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+  [class*="noteSpan"] {
+    display: inline-block;
+    min-height: 1px;
+    margin-left: 1px;
+    margin-bottom: -4px;
+  }
+
+.noteSpan1_16 {
+  width: 10px;
+}
+
+.noteSpan1_8 {
+  width: 20px;
+}
+
+.noteSpan1_4 {
+  width: 40px;
+}
+
+.noteSpan1_2 {
+  width: 80px;
+}
+
+.noteSpan1 {
+  width: 160px;
+}
+
+.noteSpan_TitleDark {
+    height: 40px;
+    width: 150px;
+    padding-right:  10px;
+    color: #fff;
+    text-align: right;
+    vertical-align: top;
+    /* IE10 Consumer Preview */
+    background-image: -ms-linear-gradient(right, #575757 0%, #000000 100%);
+    /* Mozilla Firefox */
+    background-image: -moz-linear-gradient(right, #575757 0%, #000000 100%);
+    /* Opera */
+    background-image: -o-linear-gradient(right, #575757 0%, #000000 100%);
+    /* Webkit (Safari/Chrome 10) */
+    background-image: -webkit-gradient(linear, right top, left top, color-stop(0, #575757), color-stop(1, #000000));
+    /* Webkit (Chrome 11+) */
+    background-image: -webkit-linear-gradient(right, #575757 0%, #000000 100%);
+    /* W3C Markup, IE10 Release Preview */
+    background-image: linear-gradient(to left, #575757 0%, #000000 100%);
+
+}
+
+.noteSpan_TitleDark:hover {
+    /* IE10 Consumer Preview */
+    background-image: -ms-linear-gradient(left, #874518 0%, #B07D31 100%);
+    /* Mozilla Firefox */
+    background-image: -moz-linear-gradient(left, #874518 0%, #B07D31 100%);
+    /* Opera */
+    background-image: -o-linear-gradient(left, #874518 0%, #B07D31 100%);
+    /* Webkit (Safari/Chrome 10) */
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #874518), color-stop(1, #B07D31));
+    /* Webkit (Chrome 11+) */
+    background-image: -webkit-linear-gradient(left, #874518 0%, #B07D31 100%);
+    /* W3C Markup, IE10 Release Preview */
+    background-image: linear-gradient(to right, #874518 0%, #B07D31 100%);
+    -moz-box-shadow: inset -10px 0 10px #874518;
+    -webkit-box-shadow: inset -10px 0 10px #874518;
+    box-shadow: inset -10px 0 10px #B07D31;
+}
+
+.noteSpan_TitleDark:active {
+    -moz-box-shadow: inset 0 0 5px #111;
+    -webkit-box-shadow: inset 0 0 5px #111;
+    box-shadow: inset 0 0 5px #111;
+}
+
+.noteSpan_TitleLight {
+    height: 40px;
+    width: 150px;
+    padding-right:  10px;
+    color: #222;
+    text-align: right;
+    vertical-align: top;
+    /* IE10 Consumer Preview */
+    background-image: -ms-linear-gradient(left, #EDEDED 0%, #FFFFFF 100%);
+    /* Mozilla Firefox */
+    background-image: -moz-linear-gradient(left, #EDEDED 0%, #FFFFFF 100%);
+    /* Opera */
+    background-image: -o-linear-gradient(left, #EDEDED 0%, #FFFFFF 100%);
+    /* Webkit (Safari/Chrome 10) */
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #EDEDED), color-stop(1, #FFFFFF));
+    /* Webkit (Chrome 11+) */
+    background-image: -webkit-linear-gradient(left, #EDEDED 0%, #FFFFFF 100%);
+    /* W3C Markup, IE10 Release Preview */
+    background-image: linear-gradient(to right, #EDEDED 0%, #FFFFFF 100%);
+}
+
+.noteSpan_TitleLight:hover {
+    /* IE10 Consumer Preview */
+    background-image: -ms-linear-gradient(left, #BABF76 0%, #E2EBBE 100%);
+    /* Mozilla Firefox */
+    background-image: -moz-linear-gradient(left, #BABF76 0%, #E2EBBE 100%);
+    /* Opera */
+    background-image: -o-linear-gradient(left, #BABF76 0%, #E2EBBE 100%);
+    /* Webkit (Safari/Chrome 10) */
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #BABF76), color-stop(1, #E2EBBE));
+    /* Webkit (Chrome 11+) */
+    background-image: -webkit-linear-gradient(left, #BABF76 0%, #E2EBBE 100%);
+    /* W3C Markup, IE10 Release Preview */
+    background-image: linear-gradient(to right, #BABF76 0%, #E2EBBE 100%);
+}
+
+.noteSpan_TitleLight:active {
+    -moz-box-shadow: inset 0 0 5px #111;
+    -webkit-box-shadow: inset 0 0 5px #111;
+    box-shadow: inset 0 0 5px #111;
+}
