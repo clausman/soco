@@ -1,20 +1,24 @@
 var model = require('./model')
 
-function Track(name, instrument, notes)
+function Track(name, options)
 {
     if (name === undefined) throw "Tracks must have a name to be created";
-    if (instrument === undefined) instrument = "Piano";
-    if (notes === undefined) notes = [];
+    options = options || {}
+    var instrument = options.instrument || "Piano";
+    var notes = options.notes || [];
+    var id = options.id || null;
+    if (! notes instanceof Array) throw "Notes must be an array"
 
+    this.id = id;
     this.name = name;
     this.instrument = instrument;
     this.notes = notes;
 };
 
 module.exports = new model({
-    create : function(name, instrument, notes)
+    create : function(name, options)
     {
-        return new Track(name, instrument, notes);
+        return new Track(name, options);
     },
     validate : function(track)
     {
@@ -26,4 +30,6 @@ module.exports = new model({
         return true;
     }
 });
+
+
 

@@ -1,12 +1,16 @@
 var model = require('./model');
 
-function Composition(name, creator, tempo, tracks)
+function Composition(name, options)
 {
     if (name === undefined) throw "Composition must have name to be created";
-    if (creator === undefined) creator = "Unknown";
-    if (tempo === undefined) tempo = 120;
-    if (tracks === undefined) tracks = [];
+    options = options || {}
+    var creator = options.creator || "Unknown";
+    var tempo =  options.tempo || 120;
+    var tracks = options.tracks || [];
+    var id = options.id || null;
+    if (! tracks instanceof Array) throw "Tracks must be an array"
 
+    this.id = id;
     this.name = name;
     this.creator = creator;
     this.tempo = tempo;
@@ -14,9 +18,10 @@ function Composition(name, creator, tempo, tracks)
 };
 
 module.exports = new model({
-    create : function(name, creator, tempo, tracks)
+    create : function(name, options)
     {
-        return new Composition(name, creator, tempo, tracks);
+        options = options || {}
+        return new Composition(name, options);
     },
     validate : function(composition)
     {
