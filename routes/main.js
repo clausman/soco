@@ -20,4 +20,8 @@ module.exports = function (app) {
         res.redirect('#game');
     });
 
+    app.get('/sheetmusic/:id', function(req, res, next){
+        res.render('sheetmusic');    
+    })
+
 }

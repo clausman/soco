@@ -19,10 +19,6 @@ function Note(pitch, on, durationNumerator, durationDenominator, options)
     this.offVelocity = offVelocity;
 };
 
-Note.prototype.toString = function() {
-    JSON.stringfy(this);
-};
-
 module.exports = new model({
     create : function(pitch, on, durationNumerator, durationDenominator, options) {
         return new Note(pitch, on, durationNumerator, durationDenominator, options);
