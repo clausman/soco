@@ -10,10 +10,11 @@ var db = require('../db/db')
  **/
 module.exports = function (app) {
     app.put('/composition/:id', function(req, res, next) {
-        var comp_db = db.compositions;
-        var comp_id = req.param('id');
+        var compDb = db.compositions;
+        var compId = req.param('id');
+        var callback = callbacks.dbCallback(req, res);
         var comp = {};
-        comp_db.get(comp_id, { revs_info: false }, function(err, body) {
+        compDb.get(compId, { revs_info: false }, function(err, body) {
             if (!err) {
                 comp = Composition.createFromObject(body);
     			var creator = req.body.creator;
@@ -25,12 +26,7 @@ module.exports = function (app) {
 		    	var name = req.body.name;
 		    	if(!(name === undefined || name === null)) comp.name = name;
 		        if(Composition.validate(comp)) {
-		            comp_db.insert(comp, function(err, resp) {
-		            	if(!err)
-		            		res.json({"OK": true});
-		            	else
-		            		res.json({"OK": false});
-		            });
+		            compDb.insert(comp, compId, callback);
 		        }
 		       	else
 		        	res.json({"OK": false});
@@ -40,57 +36,47 @@ module.exports = function (app) {
     });
     
     app.put('/track/:id', function(req, res, next) {
-        var track_db = db.tracks;
-        var track_id = req.param('id');
+        var trackDb = db.tracks;
+        var trackId = req.param('id');
+        var callback = callbacks.dbCallback(req, res);
         var track = {};
-        track_db.get(track_id, { revs_info: false }, function(err, body) {
+        trackDb.get(trackId, { revs_info: false }, function(err, body) {
             if (!err) {
                 track = Track.createFromObject(body);
 
 		    	var instrument = req.body.instrument;
 		    	if(!(instrument === undefined || instrument === null)) track.instrument = instrument;
-		    	var note_groups = req.body.note_groups;
-		    	if(!(note_groups === undefined || note_groups === null)) track.note_groups = note_groups;
+		    	var noteGroups = req.body.noteGroups;
+		    	if(!(noteGroups === undefined || noteGroups === null)) track.noteGroups = noteGroups;
 		    	var name = req.body.name;
 		    	if(!(name === undefined || name === null)) track.name = name;
-		        if(Track.validate(track)) {
-		            track_db.insert(track, function(err, resp) {
-		            	if(!err)
-		            		res.json({"OK": true});
-		            	else
-		            		res.json({"OK": false});
-		            });
-		        }
-		       	else
+		        if(Track.validate(track))
+		            trackDb.insert(track, trackId, callback);
+		        else
 		        	res.json({"OK": false});
             } else
                 res.json({"OK": false});
         });
     });
 
-	app.put('/note_group/:id', function(req, res, next) {
-        var note_group_db = db.noteGroups;
-        var note_group_id = req.param('id');
-        var note_group = {};
-        note_group_db.get(note_group_id, { revs_info: false }, function(err, body) {
+	app.put('/noteGroup/:id', function(req, res, next) {
+        var noteGroupDb = db.noteGroups;
+        var noteGroupId = req.param('id');
+        var callback = callbacks.dbCallback(req, res);
+        var noteGroup = {};
+        noteGroupDb.get(noteGroupId, { revs_info: false }, function(err, body) {
             if (!err) {
-                note_group = NoteGroup.createFromObject(body);
+                noteGroup = NoteGroup.createFromObject(body);
 
 		    	var start = req.body.start;
-		    	if(!(start === undefined || start === null)) note_group.start = start;
+		    	if(!(start === undefined || start === null)) noteGroup.start = start;
 		    	var notes = req.body.notes;
-		    	if(!(notes === undefined || notes === null)) note_group.notes = notes;
+		    	if(!(notes === undefined || notes === null)) noteGroup.notes = notes;
 		    	var name = req.body.name;
-		    	if(!(name === undefined || name === null)) note_group.name = name;
-		        if(NoteGroup.validate(note_group)) {
-		            note_group_db.insert(note_group, function(err, resp) {
-		            	if(!err)
-		            		res.json({"OK": true});
-		            	else
-		            		res.json({"OK": false});
-		            });
-		        }
-		       	else
+		    	if(!(name === undefined || name === null)) noteGroup.name = name;
+		        if(NoteGroup.validate(noteGroup))
+		            noteGroupDb.insert(noteGroup, fnoteGroupId, callback);
+		        else
 		        	res.json({"OK": false});
             } else
                 res.json({"OK": false});
