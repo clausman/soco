@@ -28,6 +28,4 @@ module.exports = new model({
     		return false;
     	return true;
     }
-
-    return this;
 });
