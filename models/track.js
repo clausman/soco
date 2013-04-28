@@ -16,12 +16,10 @@ function Track(name, options)
 };
 
 module.exports = new model({
-    create : function(name, options)
-    {
+    create : function(name, options) {
         return new Track(name, options);
     },
-    validate : function(track)
-    {
+    validate : function(track) {
         if (track.name === undefined 
             || track.instrument === undefined
             || track.note_groups === undefined
@@ -30,16 +28,12 @@ module.exports = new model({
         return true;
     },
     createFromObject : function(obj) {
-	if(typeof obj.name === 'undefined') {
-	    throw "Name undefined.";
-	}
+		var options = {};
+		options.id = obj.id;
+		options.instrument = obj.instrument;
+		options.note_groups = obj.note_groups;
 	
-	var optional = {};
-	optional.id = obj.id;
-	optional.instrument = obj.instrument;
-	optional.note_groups = obj.note_groups;
-
-	return this.create(obj.name, optional);
-    }
+		return this.create(obj.name, options);
+	}
 });
 

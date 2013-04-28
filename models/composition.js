@@ -18,13 +18,10 @@ function Composition(name, options)
 };
 
 module.exports = new model({
-    create : function(name, options)
-    {
+    create : function(name, options) {
         return new Composition(name, options);
     },
-    validate : function(composition)
-    {
-	console.log(composition.tracks);
+    validate : function(composition) {
         if (composition.name === undefined
             || composition.creator === undefined
             || composition.tempo === undefined
@@ -33,20 +30,13 @@ module.exports = new model({
             return false;
         return true;
     },
-    createFromObject : function(obj) 
-    {
-	console.log(obj.name);
-	if(typeof obj.name === 'undefined') {
-	    throw "Name undefined.";
-	}
-
-	var optional = {};
-	optional.creator = obj.creator;
-	optional.tempo = obj.tempo;
-	optional.tracks = obj.tracks;
-	
-	return this.create(obj.name, optional);
+    createFromObject : function(obj) {
+		var options = {};
+		options.creator = obj.creator;
+		options.tempo = obj.tempo;
+		options.tracks = obj.tracks;
+		
+		return this.create(obj.name, options);
     }
-    
 });
 
