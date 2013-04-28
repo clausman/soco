@@ -15,6 +15,7 @@ function Composition(name, options)
     this.creator = creator;
     this.tempo = tempo;
     this.tracks = tracks;
+
 };
 
 module.exports = new model({
@@ -24,7 +25,6 @@ module.exports = new model({
     },
     validate : function(composition)
     {
-	console.log(composition.tracks);
         if (composition.name === undefined
             || composition.creator === undefined
             || composition.tempo === undefined
@@ -35,18 +35,16 @@ module.exports = new model({
     },
     createFromObject : function(obj) 
     {
-	console.log(obj.name);
-	if(typeof obj.name === 'undefined') {
-	    throw "Name undefined.";
-	}
+        if(typeof obj.name === 'undefined') {
+            throw "Name undefined.";
+        }
 
-	var optional = {};
-	optional.creator = obj.creator;
-	optional.tempo = obj.tempo;
-	optional.tracks = obj.tracks;
-	
-	return this.create(obj.name, optional);
+        var optional = {};
+        optional.creator = obj.creator;
+        optional.tempo = obj.tempo;
+        optional.tracks = obj.tracks;
+
+        return this.create(obj.name, optional);
     }
-    
 });
 
