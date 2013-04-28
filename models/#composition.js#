@@ -10,7 +10,7 @@ function Composition(name, options)
     var id = options.id || null;
     if (! tracks instanceof Array) throw "Tracks must be an array"
 
-    this._id = id;
+    this.id = id;
     this.name = name;
     this.creator = creator;
     this.tempo = tempo;
@@ -20,6 +20,7 @@ function Composition(name, options)
 module.exports = new model({
     create : function(name, options)
     {
+        options = options || {}
         return new Composition(name, options);
     },
     validate : function(composition)
@@ -35,7 +36,6 @@ module.exports = new model({
     },
     createFromObject : function(obj) 
     {
-	console.log(obj.name);
 	if(typeof obj.name === 'undefined') {
 	    throw "Name undefined.";
 	}
@@ -49,4 +49,5 @@ module.exports = new model({
     }
     
 });
+
 

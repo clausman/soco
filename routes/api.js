@@ -1,9 +1,8 @@
 var errorHandler = require('./api');
+
 var Composition = require('../models/composition.js');
 var Track = require('../models/track.js');
-
-// TODO Move the connection string to a common location
-var nano = require('nano')('http://localhost:5984');
+var db = require('../db/db')
 
 /**
  * Api Crud operations
@@ -11,28 +10,32 @@ var nano = require('nano')('http://localhost:5984');
 module.exports = function (app) {
     app.get('/composition/:id', function(req, res, next) {
         var comp_id = req.param('id');
-        var comp_db = nano.db.use('composition');
-        comp_db.get(comp_id, { revs_info: true }, function(err, body) {
+        
+        db.compositions.get(comp_id, { revs_info: true }, function(err, body) {
             if (!err)
                 res.json(body)
+            else
+                res.send(500, {error: err})
         });
     });
 
     app.get('/track/:id', function(req, res, next) {
-        var id = req.param('id');
-        var db = nano.db.use('tracks');
-        db.get(id, { revs_info: true }, function(err, body) {
+        var id = req.param('id');        
+        db.tracks.get(id, { revs_info: true }, function(err, body) {
             if (!err)
                 res.json(body)
+            else
+                res.send(500, {error:err})
         });
     });
     
     app.get('/note_group/:id', function(req, res, next) {
         var id = req.param('id');
-        var db = nano.db.use('note_groups');
-        db.get(id, { revs_info: true }, function(err, body) {
+        db.noteGroups.get(id, { revs_info: true }, function(err, body) {
             if (!err)
                 res.json(body)
+            else
+                res.send(500, {error:err})
         });
     });
 

@@ -3,13 +3,13 @@ var model = require('./model');
 function Track(name, options)
 {
     if (name === undefined) throw "Tracks must have a name to be created";
-    options = options || {}
+    options = options || {};
     var instrument = options.instrument || "Piano";
     var note_groups = options.note_groups || [];
     var id = options.id || null;
     if (! options.notes instanceof Array) throw "Notes must be an array";
 
-    this.id = id;
+    this._id = id;
     this.name = name;
     this.instrument = instrument;
     this.note_groups = note_groups;
