@@ -42,16 +42,47 @@ function callbacks() {
             if(err) {
                 console.log("Failed POST.");
                 console.log(err);
-                if(res && req) res.send(500, "Failed post: " + err);
+                if(res && req) res.send(500, "Failed POST: " + err);
             } else {
-                console.log("Successful post");
+                console.log("Successful POST");
                 console.log(body);
                 if(res && req) res.send(201, req.path + "/" + body.id);
             }
          }
     };
-
+    
+    // we use POST in save method
     this.saveCallback = this.POSTCallback;
+    
+    this.PUTCallback = function(req, res) {
+        return function(err, body) {
+            if(err) {
+                console.log("Failed PUT.");
+                console.log(err);
+                if(res && req) res.send(500, "Failed PUT: " + err);
+            } else {
+                console.log("Successful PUT");
+                console.log(body);
+                if(res && req) res.send(201, req.path + "/" + body.id);
+            }
+         }
+    }
+
+    this.DELETECallback = function(req, res) {
+        return function(err, body) {
+            if(err) {
+                console.log("Failed DELETE.");
+                console.log(err);
+                if(res && req) res.send(500, "Failed DELETE: " + err);
+            } else {
+                console.log("Successful DELETE");
+                console.log(body);
+                if(res && req) res.send(201, req.path + "/" + body.id);
+            }
+         }
+    }
+
+
 }
 
 module.exports = new callbacks();

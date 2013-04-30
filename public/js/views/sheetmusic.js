@@ -19,14 +19,14 @@ function render_tracks(renderer, tracks)
     for (var i = 0; i < tracks.length; i++) {
         var stave = new Vex.Flow.Stave(10, i*staveOffset, staveLength);
         stave.addClef("treble").setContext(ctx).draw();
-        render_notes(renderer, stave, tracks[i].note_groups);
+        render_notes(renderer, stave, tracks[i].noteGroups);
     };
 }
 
 function render_notes(renderer, stave, noteGroups)
 {
 
-    for (var i = 0; i < 1; i++) {
+    for (var i = 0; i < noteGroups.length; i++) {
          var group = noteGroups[i];
          var voice = createVoice(group);
          var formatter = new Vex.Flow.Formatter().joinVoices([voice]).format([voice], 800);

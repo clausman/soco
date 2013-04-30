@@ -14,6 +14,8 @@ module.exports = function(definition)
                     if (err) throw "Could not find in database "+id
                                 
                     for (var i = 0; i < body.rows.length; i++) {
+                    	console.log(i);
+                    	console.log(body.rows[i].doc);
                         id[i] = self.createFromObject(body.rows[i].doc)
                     };
                     callback(id);

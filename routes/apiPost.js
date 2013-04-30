@@ -2,8 +2,8 @@ var errorHandler = require('./apiPost');
 
 var Composition = require('../models/composition');
 var Track = require('../models/track');
-var NoteGroup = require('../models/noteGroup')
-var db = require('../db/db')
+var NoteGroup = require('../models/noteGroup');
+var db = require('../db/db');
 var callbacks = require('./callbacks.js');
 
 function saveChildAndAddToParent(child, childId, childModel, parentId, parentModel, callback) {

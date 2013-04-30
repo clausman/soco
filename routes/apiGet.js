@@ -2,8 +2,8 @@ var errorHandler = require('./apiGet');
 
 var Composition = require('../models/composition.js');
 var Track = require('../models/track.js');
-var NoteGroup = require('../models/noteGroup')
-var db = require('../db/db')
+var NoteGroup = require('../models/noteGroup');
+var db = require('../db/db');
 var callbacks = require('./callbacks.js');
 
 /**
@@ -14,7 +14,8 @@ module.exports = function (app) {
 		db.compositions.list({ revs_info: false }, function(err, body) {
 			if (!err) {
 				res.json(body.rows);
-			}
+			} else
+				res.send(500, "Composition list error.");
 		});
 	});
 
@@ -39,7 +40,7 @@ module.exports = function (app) {
                     composition.tracks = tracks;
                     var ngs = [];
                     for (var i = 0; i < tracks.length; i++) {
-                        ngs.push.apply(ngs, tracks[i].note_groups)
+                        ngs.push.apply(ngs, tracks[i].noteGroups)
                     };
                     NoteGroup.find(ngs, function(groups){
                         if (! groups)
@@ -52,8 +53,8 @@ module.exports = function (app) {
                         for (var i = 0; i < composition.tracks.length; i++) {
                             var track = composition.tracks[i];
 
-                            for (var j = 0; j < track.note_groups.length; j++) {
-                                track.note_groups[j] = groupHash[track.note_groups[j]]
+                            for (var j = 0; j < track.noteGroups.length; j++) {
+                                track.noteGroups[j] = groupHash[track.noteGroups[j]]
                             };
                         };
                         res.json(composition);    
@@ -69,7 +70,8 @@ module.exports = function (app) {
 		db.tracks.list({ revs_info: false }, function(err, body) {
 			if (!err) {
 				res.json(body.rows);
-			}
+			} else
+				res.send(500, "Track list error.");
 		});
 	});
 
@@ -79,15 +81,16 @@ module.exports = function (app) {
         db.tracks.get(id, { revs_info: true }, callback);
     });
  
-	app.get('/note_group', function(req, res, next) {
+	app.get('/notegroup', function(req, res, next) {
 		db.noteGroups.list({ revs_info: false }, function(err, body) {
 			if (!err) {
 				res.json(body.rows);
-			}
+			} else
+				res.send(500, "Note group list error.");
 		});
 	});
 
-    app.get('/note_group/:id', function(req, res, next) {
+    app.get('/notegroup/:id', function(req, res, next) {
         var id = req.param('id');
         var callback = callbacks.GETCallback(req, res, NoteGroup.createFromObject);
         db.noteGroups.get(id, { revs_info: true }, callback);
