@@ -13,7 +13,7 @@ module.exports = function (app) {
     app.put('/composition/:id', function(req, res, next) {
         var compDb = db.compositions;
         var compId = req.param('id');
-        var callback = callbacks.dbCallback(req, res);
+        var callback = callbacks.PUTCallback(req, res);
         compDb.get(compId, { revs_info: false }, function(err, body) {
             if (!err) {
                 var comp = Composition.createFromObject(body);
@@ -38,7 +38,7 @@ module.exports = function (app) {
     app.put('/track/:id', function(req, res, next) {
         var trackDb = db.tracks;
         var trackId = req.param('id');
-        var callback = callbacks.dbCallback(req, res);
+        var callback = callbacks.PUTCallback(req, res);
         trackDb.get(trackId, { revs_info: false }, function(err, body) {
             if (!err) {
                 var track = Track.createFromObject(body);
@@ -60,7 +60,7 @@ module.exports = function (app) {
 	app.put('/notegroup/:id', function(req, res, next) {
         var noteGroupDb = db.noteGroups;
         var noteGroupId = req.param('id');
-        var callback = callbacks.dbCallback(req, res);
+        var callback = callbacks.PUTCallback(req, res);
         noteGroupDb.get(noteGroupId, { revs_info: false }, function(err, body) {
             if (!err) {
                 var noteGroup = NoteGroup.createFromObject(body);

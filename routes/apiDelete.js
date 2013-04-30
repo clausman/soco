@@ -13,7 +13,7 @@ module.exports = function (app) {
     app.del('/composition/:id', function(req, res, next) {
         var compDb = db.compositions;
         var compId = req.param('id');
-        var compCallback = callbacks.dbCallback(req, res);
+        var compCallback = callbacks.DELETECallback(req, res);
         compDb.get(compId, { revs_info: false }, function(err, body) {
             if (!err) {
                 var comp = Composition.createFromObject(body);
@@ -24,7 +24,7 @@ module.exports = function (app) {
 		        			compDb.insert(comp, compId, compCallback);
 		        		else {
 		        			var trackDb = db.tracks;
-		        			var trackCallback = callbacks.dbCallback(req, res);
+		        			var trackCallback = callbacks.DELETECallback(req, res);
 		        			if(!(tracks instanceof Array))
 		        				tracks = [tracks];
 		        			var ngs = [];
@@ -40,7 +40,7 @@ module.exports = function (app) {
 		        					compDb.insert(comp, compId, compCallback);
 		        				} else {
 		        					var noteGroupDb = db.noteGroups;
-		        					var noteGroupCallback = callbacks.dbCallback(req, res);
+		        					var noteGroupCallback = callbacks.DELETECallback(req, res);
 		        					if(!(noteGroups instanceof Array))
 		        						notegroups = [noteGroups];
 		        					for(var j=0; j<noteGroups.length; j++) {
