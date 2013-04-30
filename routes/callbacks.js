@@ -6,49 +6,52 @@
  * PARAMS:
  *   req: request object
  *   res: response object
- *   objCreator: createFromObject from a model (required when handling GET);
+
 */
-module.exports.dbCallback = function(req, res, objCreator) {
-    var _this = this;
+function callbacks() {
 
-    if(req.method === 'GET' && typeof objCreator === 'undefined') {
-        throw "objCreator not defined in DbCallback for GET request";
-    }
-
-    this.successfulPost = function(err, body) {
-        console.log("Successful post");
-        console.log(body);
-        res.send(201, req.path + "/" + body.id);
-    };
-
-    this.failedPost = function(err, body) {
-        console.log("Failed post.");
-        console.log(err);
-        res.send(500, "Failed post: " + err);
-    };
-
-    this.successfulGet = function(err, body) {
-        console.log("Successful get:");
-        console.log(body);
-        res.send(objCreator(body));
-    };
-
-    this.failedGet = function(err, body) {
-        console.log("Failed GET.");
-        console.log(err);
-        res.send(500, { error: err});
-    };
-
-    // Return the correct db call back based on the response
-    this.onComplete = function(err, body) {
-        if(req.method === 'GET') {
-            if(err) _this.failedGet(err, body);
-            else _this.successfulGet(err, body);
-        } else if(req.method === 'POST') {
-            if(err) _this.failedPost(err, body);
-            else _this.successfulPost(err, body);
+    this.genericCallback = function() {
+        return function(err, body) {
+            if(err) {
+                console.log("Success");
+                console.log(body);
+            } else {
+                console.log("Failed GET.");
+                console.log(err);
+            }
         }
     }
 
-    return this.onComplete;
+    // objCreator: createFromObject from a model (required when handling GET);
+    this.GETCallback = function(req, res, objCreator) {
+        return function(err, body) {
+            if(err) {
+                console.log("Failed GET.");
+                console.log(err);
+                res.send(500, { error: err});
+            } else {
+                console.log("Successful get:");
+                console.log(body);
+                res.send(objCreator(body));
+            }
+        }
+    };
+
+    this.POSTCallback = function(req, res) {
+        return function(err, body) {
+            if(err) {
+                console.log("Failed POST.");
+                console.log(err);
+                if(res && req) res.send(500, "Failed post: " + err);
+            } else {
+                console.log("Successful post");
+                console.log(body);
+                if(res && req) res.send(201, req.path + "/" + body.id);
+            }
+         }
+    };
+
+    this.saveCallback = this.POSTCallback;
 }
+
+module.exports = new callbacks();

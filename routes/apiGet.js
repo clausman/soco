@@ -20,7 +20,7 @@ module.exports = function (app) {
 
     app.get('/composition/:id', function(req, res, next) {
         var comp_id = req.param('id');
-        var callback = callbacks.dbCallback(req, res, Composition.createFromObject);
+        var callback = callbacks.GETCallback(req, res, Composition.createFromObject);
         db.compositions.get(comp_id, { revs_info: true }, callback);
     });
 
@@ -75,7 +75,7 @@ module.exports = function (app) {
 
     app.get('/track/:id', function(req, res, next) {
         var id = req.param('id');        
-        var callback = callbacks.dbCallback(req, res, Track.createFromObject);
+        var callback = callbacks.GETCallback(req, res, Track.createFromObject);
         db.tracks.get(id, { revs_info: true }, callback);
     });
  
@@ -89,7 +89,7 @@ module.exports = function (app) {
 
     app.get('/note_group/:id', function(req, res, next) {
         var id = req.param('id');
-        var callback = callbacks.dbCallback(req, res, NoteGroup.createFromObject);
+        var callback = callbacks.GETCallback(req, res, NoteGroup.createFromObject);
         db.noteGroups.get(id, { revs_info: true }, callback);
     });
     
