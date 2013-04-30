@@ -47,9 +47,9 @@ module.exports = new model({
 		options.creator = obj.creator;
 		options.tempo = obj.tempo;
 		options.tracks = obj.tracks;
-
+        
 		return new Composition(obj.name, options);		
 	},
     db : db.compositions,
+    childArrayName : 'tracks'
 });
-

@@ -6,10 +6,10 @@ function Track(name, options)
     if (name === undefined) throw "Tracks must have a name to be created";
     options = options || {};
     var instrument = options.instrument || "Piano";
-    var note_groups = options.note_groups || [];
+    var noteGroups = options.noteGroups || [];
     var id = options.id || null;
     var rev = options.rev || null;
-    if (! options.note_groups instanceof Array) throw "Notes must be an array";
+    if (! options.noteGroups instanceof Array) throw "Notes must be an array";
 
 	if (id != null) {
     	this._id = id;
@@ -19,7 +19,7 @@ function Track(name, options)
     }
     this.name = name;
     this.instrument = instrument;
-    this.note_groups = note_groups;
+    this.noteGroups = noteGroups;
 };
 
 module.exports = new model({
@@ -29,8 +29,8 @@ module.exports = new model({
     validate : function(track) {
         if (track.name === undefined 
             || track.instrument === undefined
-            || track.note_groups === undefined
-            || !(track.note_groups instanceof Array))
+            || track.noteGroups === undefined
+            || !(track.noteGroups instanceof Array))
             return false;
         return true;
     },
@@ -39,10 +39,11 @@ module.exports = new model({
 		options.id = obj.id ? obj.id : obj._id;
 		options.rev = obj.rev ? obj.rev : obj._rev;
 		options.instrument = obj.instrument;
-		options.note_groups = obj.note_groups;
+		options.noteGroups = obj.noteGroups;
 	
 		return new Track(obj.name, options);
 	},
     db : db.tracks,
+    childArrayName : 'noteGroups'
 });
 

@@ -45,5 +45,5 @@ module.exports = new model({
 		return new NoteGroup(obj.start, options);
     },
     db: db.noteGroups,
-
+    childArrayName: 'notes'
 });
