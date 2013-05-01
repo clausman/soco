@@ -4,7 +4,7 @@ require(["dojo/_base/declare", "dojo/dom-construct", "dojo/dom-class", "dojo/dom
         declare("widgets.PianoRoll", [_WidgetBase, _TemplatedMixin], {
             templateString: _PianoRollTemplate,
             timeStep: 20,
-            numOctaves: 3,  // how many octaves to show (starting at middle C)
+            numOctaves: 1,  // how many octaves to show (starting at middle C)
             numSteps: 40,
 
             _notesArray: null,
@@ -162,6 +162,8 @@ require(["dojo/_base/declare", "dojo/dom-construct", "dojo/dom-class", "dojo/dom
 
                     (function () {
                         var chord = _this._notesArray[i];
+                        var freqArray = new Array();
+		                var durationArray = new Array();
 
                         _this._audiolet.scheduler.addRelative(i, function () {
                             if(chord) {
@@ -177,7 +179,7 @@ require(["dojo/_base/declare", "dojo/dom-construct", "dojo/dom-class", "dojo/dom
                                         console.log("Playing: " + note.frequency());
                                         synth.connect(_this._audiolet.output);
 
-                                        setTimeout(dojo.hitch(this, function() { domClass.replace(div, "note", "notePlay") }), 500);
+                                        setTimeout(dojo.hitch(this, function() { domClass.replace(div, "note", "notePlay") }), 480);
                                     })();
 
                                 }
