@@ -1,2 +1,31 @@
 @import url("bootstrap.css");
 @import url("bootstrap-responsive.css");
+@import url("pianoRoll.css");
+
+/* Footer
+-------------------------------------------------- */
+body {
+    background-color: #223344;
+    color: #ddd;
+}
+.footer {
+  text-align: center;
+  padding: 5px 0;
+  margin-top: 50px;
+  border-top: 1px solid #e5e5e5;
+  background-color: #f5f5f5;
+}
+.footer p {
+  margin-bottom: 0;
+  color: #777;
+}
+.footer-links {
+  margin: 10px 0;
+}
+.footer-links li {
+  display: inline;
+  padding: 0 2px;
+}
+.footer-links li:first-child {
+  padding-left: 0;
+}

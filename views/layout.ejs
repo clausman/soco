@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Welcome to Social Composer - Virtual Production Desktop</title>
+
+        <!-- Twitter Bootstrap styles -->
+        <link href="/css/style.css" rel="stylesheet">
+
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        
+        <script>
+            dojoConfig = { baseUrl: "/js/", packages: [ {name: "widgets", location: "widgets"} ], activeHeader: "<%=activeHeader%>" };
+        </script>
+
+        <script src="//ajax.googleapis.com/ajax/libs/dojo/1.8.3/dojo/dojo.js"></script>
+
+        <!--jQuery UI -->
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    </head>
+
+    <body>
+        <script>
+            require(["dojo/ready", "dojo/dom", "dojo/dom-class"], function (ready, dom, domClass) {
+                ready(function () {
+                    console.log("Page Loaded: " + dojoConfig.activeHeader);
+                    activeHeader = dom.byId(dojoConfig.activeHeader);
+                    domClass.add(activeHeader, "active");
+
+                });
+            });
+        </script>
+        <div id="header"><%- partial('header')%></div>
+        <div class="container container-fluid" style="padding-top: 50px;">
+            <div class="row-fluid">
+                <div class="alert" style="margin-bottom: 5px;">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Warning!</strong> This website is under construction!
+                </div>
+                <div style="padding-top: 5px;">
+                    <div class="span12">
+                        <div id="content"><%- body %></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer"><%- partial('footer')%></div>
+    </body>
+</html>

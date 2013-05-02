@@ -4,62 +4,15 @@
  */
 
 var express = require('express');
-var engine = require('ejs-locals');
-
-/* Optimize JS file using Node + Require.js on server start 
- * (uncomment to use... need to change to happen anytime server files change using fs.watch)
- */
-/* Start Optimize JS
-var requirejs = require('requirejs');
-
-
-var config = {
-    baseUrl: 'public/js',
-    paths: { 
-        'jquery' : './libs/jquery-1.8.3',
-        'underscore' : './libs/underscore',
-        'backbone' : './libs/backbone',
-        'text' : './libs/text'
-    },
-    name: 'main',
-    out: 'public/js/main-min.js'
-};
-
-requirejs.optimize(config,
-    function (buildResponse) {
-        console.log("Optimization: Successfully Completed!");
-        var contents = fs.readFileSync(rjsConfig.out, 'utf8');
-    },
-
-    function (err) { console.log("Optimization: " + err) }
-);
-
-* End Optimze JS */
-
-/* Start Optimize CSS
-var requirejs = require('requirejs');
-var config = {
-    cssIn: 'public/css/style.css',
-    out: 'public/css/style-min.css',
-    optimizeCss: 'standard'
-};
-
-requirejs.optimize(config,
-    function (buildResponse) {
-        console.log("Optimization: Successfully Completed!");
-        var contents = fs.readFileSync(rjsConfig.out, 'utf8');
-    },
-
-    function (err) { console.log("Optimization: " + err) }
-);
-* End Optimze CSS */
+var partials = require('express-partials');
 
 var app = express();
 
 // Configuration
-app.engine('ejs', engine);
-app.set('views', __dirname + '/views');
+app.use(partials());
+
 app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
 
 app.use(function(err, req, res, next){
   console.error(err.stack);
@@ -73,6 +26,7 @@ app.use(express.static(__dirname + '/public'));
 //
 var passport = require('passport'),
    GoogleStrategy = require('passport-google').Strategy;
+
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
 //   serialize users into and deserialize users out of the session.  Typically,
@@ -87,6 +41,7 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
+
 app.use(express.cookieParser()); 
 app.use(express.session({secret: 'poopipants'}));
 app.use(passport.initialize());

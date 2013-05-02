@@ -2,22 +2,17 @@ module.exports = function (app) {
 
     // home
     app.get('/', function (req, res, next) {
-        res.render('index');
+        res.render('index', {activeHeader: 'navbar_home'});
     });
 
-    // home for third parties
-    app.post('/', function (req, res, next) {
-        res.render('index');
+    // compose
+    app.get('/compose', function (req, res, next) {
+        res.render('compose', {activeHeader: 'navbar_compose'});
     });
 
     // about
     app.get('/about', function (req, res, next) {
-        res.redirect('#about');
-    });
-
-    // game
-    app.get('/game', function (req, res, next) {
-        res.redirect('#game');
+        res.render('about', {activeHeader: 'navbar_about'});
     });
 
     app.get('/sheetmusic/:id', ensureAuthenticated, function(req, res, next){
