@@ -13,7 +13,7 @@
         <![endif]-->
         
         <script>
-            dojoConfig = { baseUrl: "/js/", packages: [ {name: "widgets", location: "widgets"} ], activeHeader: "<%=activeHeader%>" };
+            dojoConfig = { baseUrl: "/js/", packages: [ {name: "widgets", location: "widgets"} ], activeHeader: "<%=activeHeader%>"};
         </script>
 
         <script src="//ajax.googleapis.com/ajax/libs/dojo/1.8.3/dojo/dojo.js"></script>
@@ -36,16 +36,13 @@
             });
         </script>
         <div id="header"><%- partial('header')%></div>
-        <div class="container container-fluid" style="padding-top: 50px;">
-            <div class="row-fluid">
-                <div class="alert" style="margin-bottom: 5px;">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>Warning!</strong> This website is under construction!
+        <div class="page">
+            <div class="main">
+                <div class="sidebar" id="sidebar">
+                    <%- partial('sidebar')%>
                 </div>
-                <div style="padding-top: 5px;">
-                    <div class="span12">
-                        <div id="content"><%- body %></div>
-                    </div>
+                <div class="content" id="content">
+                    <%- body %>
                 </div>
             </div>
         </div>

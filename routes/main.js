@@ -1,22 +1,29 @@
 module.exports = function (app) {
 
+    var db = require('../db/db');
+
     // home
     app.get('/', function (req, res, next) {
-        res.render('index', {activeHeader: 'navbar_home'});
+        res.render('index', { activeHeader: 'navbar_home' });
     });
 
     // compose
     app.get('/compose', function (req, res, next) {
-        res.render('compose', {activeHeader: 'navbar_compose'});
+        var output;
+        db.compositions.view('name', 'name', [], function (err, body) {
+            if (!err) {
+                res.render('compose', { activeHeader: 'navbar_compose', data: { compositions: JSON.stringify(body.rows)} });
+            }
+        });
     });
 
     // about
     app.get('/about', function (req, res, next) {
-        res.render('about', {activeHeader: 'navbar_about'});
+        res.render('about', { activeHeader: 'navbar_about' });
     });
 
-    app.get('/sheetmusic/:id', ensureAuthenticated, function(req, res, next){
-        res.render('sheetmusic');    
+    app.get('/sheetmusic/:id', ensureAuthenticated, function (req, res, next) {
+        res.render('sheetmusic');
     })
 
 }

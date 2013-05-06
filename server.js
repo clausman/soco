@@ -83,7 +83,7 @@ function logErrors(err, req, res, next) {
 
 function clientErrorHandler(err, req, res, next) {
   if (req.xhr) {
-    res.send(500, { error: 'Something blew up!' });
+    res.send(500, { title: 'Something blew up!' });
   } else {
     next(err);
   }
@@ -91,7 +91,7 @@ function clientErrorHandler(err, req, res, next) {
 
 function errorHandler(err, req, res, next) {
   res.status(500);
-  res.render('error', { error: err });
+  res.render('error', { title: err });
 }
 
 
@@ -102,8 +102,6 @@ require('./routes/apiPost')(app);
 require('./routes/apiPut')(app);
 require('./routes/account')(app);
 require('./routes/apiDelete')(app);
-//require('./routes/api')(app);
-//require('./routes/global')(app);
 
 app.listen(process.env.port || 3000);
 console.log('Listening on port:' + (process.env.port || 3000));

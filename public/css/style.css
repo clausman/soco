@@ -1,5 +1,4 @@
 @import url("bootstrap.css");
-@import url("bootstrap-responsive.css");
 @import url("pianoRoll.css");
 
 /* Footer
@@ -28,4 +27,8 @@ body {
 }
 .footer-links li:first-child {
   padding-left: 0;
+}
+
+.navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
+    width: 95%;
 }

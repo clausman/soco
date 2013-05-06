@@ -6,6 +6,19 @@
 
 <script src="/js/libs/audiolet/Audiolet.js"></script>
 <script src="/js/libs/audiolet/audiolet_app.js"></script>
+<script>
+    var compositions = <%-data.compositions%>;
+    var sidebar = dojo.byId("sidebar");
+    var ul = (document.createElement("ul"));
+    ul.className = "nav";
+    dojo.forEach(compositions, function(item) {
+        var li = document.createElement("li");
+        li.innerHTML = item.key;
+        dojo.place(li, ul);
+    });
+    
+    dojo.place(ul, sidebar);
+</script>
 
 <input value="Play" type="button" onclick="window.pianoRoll.playAll()"></input>
 <script>
@@ -14,7 +27,11 @@
 
     require(["dojo/ready", "widgets/PianoRoll"], function (ready, PianoRoll) {
         ready(function () {
-            setTimeout( dojo.hitch(this, function() { window.pianoRoll = widgets.PianoRoll({timeStep: _timeSteps["1/4"]}, "content") }), 50);
-         });
-     });
+            setTimeout(dojo.hitch(this,
+                function () {
+                    window.pianoRoll = new widgets.PianoRoll({ timeStep: _timeSteps["1/4"] });
+                    window.pianoRoll.placeAt("content");
+                }), 5);
+        });
+    });
 </script>

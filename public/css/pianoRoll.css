@@ -1,10 +1,92 @@
-.row {
-    margin-left: 0px;
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-.piano-grid {
+.pianoKeys {
+    position: absolute;
+    width: 160px;
+}
+
+.pianoGrid {
+    margin-left: 161px;
     overflow-x: scroll;
     overflow-y: hidden;
+}
+
+.PianoRollContainer {
+    padding-bottom: 40px;
+}
+
+.pianoPlacedNotes {
+    width:  0px;
+    height: 0px;
+    position: relative;
+}
+
+
+body {
+    display: -moz-box;
+    display: -webkit-box;
+    -moz-box-orient: horizontal;
+    -webkit-box-orient: horizontal;
+    -moz-box-pack: center;
+    -webkit-box-pack: center;
+}
+
+.page {
+    display: -moz-box;
+    display: -webkit-box;
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    -moz-box-orient: vertical;
+    -webkit-box-orient: vertical;
+    height: 100%;
+    max-width: 90%;
+}
+
+.main {
+    display: -moz-box;
+    display: -webkit-box;
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    -moz-box-orient: horizontal;
+    -webkit-box-orient: horizontal;
+    padding-top: 40px;
+    padding-bottom: 30px;
+}
+
+.sidebar {
+    border-right: 1px solid #CCCCCC;
+    width: 220px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+    margin: 0px;
+}
+
+.sidebar-collapsed {
+    width:  0px;
+}
+
+.sidebar ul li {
+    border: 1px solid #E5E5E5;
+    display: block;
+    margin: -1px -1px 0 -1px;
+    padding: 10px 10px;
+}
+
+.content {
+    display: -moz-box;
+    display: -webkit-box;
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    -moz-box-orient: vertical;
+    -webkit-box-orient: vertical;
+    padding: 10px;
+}
+.row {
+    margin-left: 0px;
 }
 
 .note {
@@ -32,6 +114,8 @@
 .show-piano-grid {
   float: left;
   white-space:  nowrap;
+  margin-bottom: 1px;
+  height: 40px;
 }
 .show-piano-grid [class*="noteSpan"] {
   background-color: #ddd;
@@ -40,6 +124,10 @@
           border-radius: 0px;
   min-height: 40px;
   line-height: 40px;
+}
+
+.show-piano-grid [class*="noteSpanActive"] {
+    background-color: #ffd800;
 }
 
 .altRow {
@@ -53,16 +141,11 @@
 .show-piano-grid [class*="noteSpan"]:hover {
   background-color: #bbb;
 }
-.show-piano-grid .show-piano-grid {
-  margin-top: 0;
-  margin-bottom: 0;
-}
 
   [class*="noteSpan"] {
     display: inline-block;
     min-height: 1px;
     margin-left: 1px;
-    margin-bottom: -4px;
   }
 
 .noteSpan_TitleDark {
@@ -72,6 +155,7 @@
     color: #fff;
     text-align: right;
     vertical-align: top;
+    margin-bottom: 1px;
     /* IE10 Consumer Preview */
     background-image: -ms-linear-gradient(right, #575757 0%, #000000 100%);
     /* Mozilla Firefox */
@@ -118,6 +202,7 @@
     color: #222;
     text-align: right;
     vertical-align: top;
+    margin-bottom: 1px;
     /* IE10 Consumer Preview */
     background-image: -ms-linear-gradient(left, #EDEDED 0%, #FFFFFF 100%);
     /* Mozilla Firefox */
